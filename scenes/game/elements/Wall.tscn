@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://dn1w8045h2oat"]
+
+[ext_resource type="Script" path="res://scenes/game/elements/Wall.gd" id="1_ytcpb"]
+[ext_resource type="PackedScene" uid="uid://dfwc0dfw20run" path="res://scenes/game/systems/PolygonByMouse.tscn" id="2_7b4y6"]
+
+[node name="Wall" type="Area2D"]
+script = ExtResource("1_ytcpb")
+
+[node name="PolygonByMouse" parent="." instance=ExtResource("2_7b4y6")]
+only_get_polygon = true
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="max_len_rised" from="PolygonByMouse" to="." method="_on_polygon_by_mouse_max_len_rised"]
+[connection signal="new_step" from="PolygonByMouse" to="." method="_on_polygon_by_mouse_new_step"]

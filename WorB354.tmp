@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://ca3ocit68ttdq"]
+
+[ext_resource type="PackedScene" uid="uid://prpawadsl6pg" path="res://Enemy.tscn" id="1_1wk44"]
+[ext_resource type="Script" path="res://World.gd" id="1_dy0oq"]
+[ext_resource type="PackedScene" uid="uid://dfwc0dfw20run" path="res://Finals/PolygonByMouse.tscn" id="2_3vxlf"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_rbe4d"]
+vertices = PackedVector2Array(395, 156, 352, 159, 363, 130, 697, 16, 548, 117, 518, 352, 1036, 140, 1017, 591, 209, 533, 307, 275, 509, 341, 555, 133)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(5, 6, 7, 8), PackedInt32Array(5, 8, 9, 10), PackedInt32Array(10, 9, 11), PackedInt32Array(3, 10, 11), PackedInt32Array(3, 11, 4)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(356, 123, 720, -1, 521, 340, 1047, 126, 1027, 602, 196, 543)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+
+[node name="World" type="Node2D"]
+script = ExtResource("1_dy0oq")
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_rbe4d")
+
+[node name="PolygonByMouse" parent="NavigationRegion2D" instance=ExtResource("2_3vxlf")]
+selected_node_type = 1
+
+[node name="CharacterBody2D" parent="." instance=ExtResource("1_1wk44")]
+position = Vector2(-32, 233)
+
+[connection signal="max_len_rised" from="NavigationRegion2D/PolygonByMouse" to="." method="_on_polygon_by_mouse_max_len_rised"]
+[connection signal="new_step" from="NavigationRegion2D/PolygonByMouse" to="." method="_on_polygon_by_mouse_new_step"]

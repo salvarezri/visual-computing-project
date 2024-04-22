@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://prpawadsl6pg"]
+
+[ext_resource type="Script" path="res://scenes/game/characters/Enemy.gd" id="1_lo1xo"]
+[ext_resource type="Texture2D" uid="uid://nt55g45jmow8" path="res://assets/icon.svg" id="1_s00xf"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hlh8q"]
+radius = 61.0737
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+motion_mode = 1
+script = ExtResource("1_lo1xo")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_s00xf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_hlh8q")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+target_desired_distance = 102.58
+avoidance_enabled = true
+radius = 100.0
+debug_enabled = true

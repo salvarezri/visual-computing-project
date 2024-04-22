@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://ca3ocit68ttdq"]
+
+[ext_resource type="PackedScene" uid="uid://prpawadsl6pg" path="res://Enemy.tscn" id="1_1wk44"]
+[ext_resource type="Script" path="res://World.gd" id="1_dy0oq"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_a4c1x"]
+vertices = PackedVector2Array(926, 321, 1062, 490, 206, 483, 215, 221)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(206, 210, 196, 493, 1083, 501, 932, 312)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+
+[node name="World" type="Node2D"]
+script = ExtResource("1_dy0oq")
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_a4c1x")
+
+[node name="CharacterBody2D" parent="." instance=ExtResource("1_1wk44")]
+position = Vector2(860, 250)
