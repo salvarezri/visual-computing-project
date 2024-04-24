@@ -7,8 +7,13 @@
 script = ExtResource("1_ytcpb")
 
 [node name="PolygonByMouse" parent="." instance=ExtResource("2_7b4y6")]
-only_get_polygon = true
+limit_max_lenght = false
+selected_node_type = 0
 
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(252, 206, 183, 279, 149, 229)
+
+[connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="max_len_rised" from="PolygonByMouse" to="." method="_on_polygon_by_mouse_max_len_rised"]
 [connection signal="new_step" from="PolygonByMouse" to="." method="_on_polygon_by_mouse_new_step"]

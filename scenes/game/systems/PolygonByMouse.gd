@@ -10,6 +10,7 @@ signal new_step(step: Steps)
 @export var active: bool = true
 @export var only_final: bool = false
 @export var only_get_polygon: bool = false
+@export var access_group:String = "PolygonGenerated"
 
 @export var selected_node_type: NodeType = NodeType.POLYGON_2D
 
@@ -26,7 +27,13 @@ var last_line : int = -1
 var curr_len: float = 0
 var group_gen: String
 
-
+func set_access_group(new_group:String, set_before: bool = false):
+	if  set_before:
+		for child in get_parent().get_children():
+			if child.is_in_group(access_group):
+				child.remove_from_group(access_group)
+				child.add_to_group(new_group)
+	access_group = new_group
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	group_gen = gen_unique_string(25)
@@ -75,6 +82,7 @@ func first_point():
 	lines_points.append([prev_pos])
 	state = true
 	if !(only_final or only_get_polygon):
+		group_gen = gen_unique_string(25)
 		update_polygon()
 	new_step.emit(Steps.START)
 
@@ -112,32 +120,37 @@ func broke_polygon():
 	var lastpoint : Vector2 = lines_points[last_line][-1]
 	lines_points.append([lastpoint])
 	last_line += 1
+	print("broke")
+	group_gen = gen_unique_string(25)
 
 func update_polygon():
 	delete_polygon_children()
 	add_polygon()
 
 func delete_polygon_children():
-	for child in get_parent().get_children():
+	var x = 0
+	for i in range(get_parent().get_child_count()-1,0,-1):
+		var child = get_parent().get_children()[i]
+		x+=1
 		if child.is_in_group(group_gen):
 			child.queue_free()
+	print(x)
 
 func add_polygon():
-	# iterate over all the lines
-	for index_line in last_line + 1:
-		# method can return more than one polygon to represent one line
-		for arr in obtain_polygon(index_line):
-			# create a new polygon node, then update his polygon and add it as a child
-			arr = arr_to_local(arr)
-			var polygon
-			match selected_node_type:
-				NodeType.COLLISION_POLYGON_2D:
-					polygon = CollisionPolygon2D.new()
-				NodeType.POLYGON_2D:
-					polygon = Polygon2D.new()
-			polygon.polygon = arr
-			polygon.add_to_group(group_gen)
-			get_parent().add_child(polygon)
+	for arr in obtain_polygon(last_line):
+		# create a new polygon node, then update his polygon and add it as a child
+		arr = arr_to_local(arr)
+		var polygon
+		match selected_node_type:
+			NodeType.COLLISION_POLYGON_2D:
+				polygon = CollisionPolygon2D.new()
+			NodeType.POLYGON_2D:
+				polygon = Polygon2D.new()
+		polygon.polygon = arr
+		polygon.add_to_group(group_gen)
+		polygon.add_to_group(access_group)
+		get_parent().add_child(polygon)
+		
 	
 func obtain_polygon(i:int) -> Array[PackedVector2Array]:
 	# convert a line into a polygon
@@ -203,6 +216,7 @@ func generate_Collition(group:String =group_gen):
 			var polygon = CollisionPolygon2D.new()
 			polygon.polygon = arr
 			polygon.add_to_group(group)
+			polygon.add_to_group(access_group)
 			get_parent().add_child(polygon)
 			
 func generate_Shape(group:String =group_gen):
@@ -214,6 +228,7 @@ func generate_Shape(group:String =group_gen):
 			var polygon = Polygon2D.new()
 			polygon.polygon = arr
 			polygon.add_to_group(group)
+			polygon.add_to_group(access_group)
 			get_parent().add_child(polygon)
 func get_group_gen() -> String:
 	return group_gen

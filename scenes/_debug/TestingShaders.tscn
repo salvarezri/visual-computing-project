@@ -1,6 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://bjsybextwtbey"]
+[gd_scene load_steps=19 format=3 uid="uid://bjsybextwtbey"]
 
+[ext_resource type="Script" path="res://scenes/_debug/TestingShaders.gd" id="1_cnsel"]
 [ext_resource type="Shader" path="res://assets/shaders/TestingShaders.gdshader" id="1_p2oub"]
+[ext_resource type="PackedScene" uid="uid://dfwc0dfw20run" path="res://scenes/game/systems/PolygonByMouse.tscn" id="2_t74my"]
+[ext_resource type="Script" path="res://scenes/_debug/SubViewport.gd" id="2_uuu3a"]
+[ext_resource type="Shader" path="res://assets/shaders/new_shader.gdshader" id="2_yjapx"]
+[ext_resource type="PackedScene" uid="uid://bwasko7uhi3sk" path="res://scenes/game/characters/Player.tscn" id="3_lfufo"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_bm6op"]
 noise_type = 0
@@ -18,16 +23,67 @@ noise = SubResource("FastNoiseLite_bm6op")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jnwp3"]
 shader = ExtResource("1_p2oub")
-shader_parameter/blur_strong = Vector2(0.15, 0.15)
+shader_parameter/blur_strong = Vector2(0.1, 0.1)
 shader_parameter/change_velocity = 1.115
 shader_parameter/noise = SubResource("NoiseTexture2D_vs54v")
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_it1j3"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_frmwk"]
+width = 1247
+height = 1187
+noise = SubResource("FastNoiseLite_it1j3")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xncnq"]
+shader = ExtResource("1_p2oub")
+shader_parameter/blur_strong = Vector2(0.1, 0.1)
+shader_parameter/change_velocity = 1.0
+shader_parameter/noise = SubResource("NoiseTexture2D_frmwk")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_drru7"]
+viewport_path = NodePath("SubViewportContainer/SubViewport")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_key6q"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_uj0kr"]
+width = 1500
+height = 1500
+noise = SubResource("FastNoiseLite_key6q")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yiju4"]
+shader = ExtResource("2_yjapx")
+shader_parameter/change_velocity = 1.0
+shader_parameter/noise = SubResource("NoiseTexture2D_uj0kr")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_1ywfi"]
+noise_type = 2
+seed = 1
+frequency = 0.0082
+fractal_type = 3
+fractal_octaves = 3
+fractal_lacunarity = 2.05
+fractal_gain = 1.065
+fractal_weighted_strength = 1.0
+fractal_ping_pong_strength = 1.0
+cellular_distance_function = 1
+cellular_return_type = 0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_hruv3"]
+width = 1200
+height = 1200
+noise = SubResource("FastNoiseLite_1ywfi")
+
 [node name="Node2D" type="Node2D"]
+position = Vector2(88, -144)
+script = ExtResource("1_cnsel")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+visible = false
 material = SubResource("ShaderMaterial_jnwp3")
-offset_right = 1152.0
-offset_bottom = 648.0
+offset_left = -96.0
+offset_top = 128.0
+offset_right = 1056.0
+offset_bottom = 776.0
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 disable_3d = true
@@ -35,14 +91,54 @@ handle_input_locally = false
 use_taa = true
 mesh_lod_threshold = 0.0
 size = Vector2i(1152, 648)
-render_target_update_mode = 4
+render_target_update_mode = 0
+script = ExtResource("2_uuu3a")
 
 [node name="Polygon2D" type="Polygon2D" parent="SubViewportContainer/SubViewport"]
 color = Color(0, 0, 0, 1)
 polygon = PackedVector2Array(0, 0, 1152, -8, 1152, 656, 0, 648)
 
-[node name="Polygon2D2" type="Polygon2D" parent="SubViewportContainer/SubViewport"]
+[node name="PolygonByMouse" parent="SubViewportContainer/SubViewport" instance=ExtResource("2_t74my")]
+limit_max_lenght = false
+active = false
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+material = SubResource("ShaderMaterial_xncnq")
+position = Vector2(720, 152)
+texture = SubResource("ViewportTexture_drru7")
+polygon = PackedVector2Array(168, 72, 240, 80, 336, 136, 368, 96, 440, 104, 568, 304, 544, 64, 920, 128, 1008, 216, 880, 616, 552, 600, 192, 528, 560, 552, 840, 520, 880, 408, 904, 232, 600, 128, 632, 280, 616, 360, 544, 352, 392, 136, 344, 184, 280, 152, 184, 112)
+
+[node name="Polygon2D2" type="Polygon2D" parent="."]
+material = SubResource("ShaderMaterial_yiju4")
+position = Vector2(-136, 1.90735e-06)
+scale = Vector2(1.39024, 1.225)
+texture = SubResource("NoiseTexture2D_hruv3")
+polygon = PackedVector2Array(168, 72, 240, 80, 277.193, 166.857, 352, 173.388, 449.825, 147.265, 495.86, 108.082, 593.684, 166.857, 720.281, 212.571, 795.088, 310.531, 829.614, 519.51, 599.439, 512.98, 513.123, 506.449, 472.842, 454.204, 592, 464, 776, 480, 728, 424, 731.789, 369.306, 704, 272, 568, 224, 530.386, 173.388, 484.351, 192.98, 363.509, 245.224, 248.421, 232.163, 225.404, 179.918)
+
+[node name="SubViewport2" type="SubViewport" parent="."]
+disable_3d = true
+handle_input_locally = false
+use_taa = true
+mesh_lod_threshold = 0.0
+size = Vector2i(1152, 648)
+render_target_update_mode = 4
+
+[node name="Polygon2D" type="Polygon2D" parent="SubViewport2"]
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(0, 0, 1152, -8, 1152, 656, 0, 648)
+
+[node name="Polygon2D2" type="Polygon2D" parent="SubViewport2"]
 position = Vector2(248, 88)
 color = Color(1, 0, 0, 1)
 polygon = PackedVector2Array(-8, -8, 48, 24, 88, 48, 120, 8, 192, 16, 320, 216, 296, -24, 672, 40, 760, 128, 632, 528, 304, 512, -56, 440, 312, 464, 592, 432, 632, 320, 656, 144, 528, 104, 352, 40, 384, 192, 368, 272, 296, 264, 144, 48, 96, 96, 32, 64, -64, 24, -80, -16)
 uv = PackedVector2Array(-16, -56, 144, -24, 352, 64, 192, 272, -64, 216, -192, 96)
+
+[node name="Player" parent="." instance=ExtResource("3_lfufo")]
+position = Vector2(488, 472)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+
+[node name="PolygonByMouse" parent="." instance=ExtResource("2_t74my")]
+limit_max_lenght = false
+
+[connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]
