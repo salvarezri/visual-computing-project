@@ -3,6 +3,7 @@ extends CharacterBody2D
 @export var speed: float = 300
 @export var acc: float = 7
 @onready var nav: NavigationAgent2D = $NavigationAgent2D
+@onready var healtComponent: HealtComponent = $HealtComponent
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -24,3 +25,16 @@ func _process(delta):
 	velocity = velocity.lerp(direction* speed,acc*delta)
 
 	move_and_slide()
+
+
+func _on_healt_component_sg_death(_remaining_damage):
+	print(":c")
+
+
+func _on_mouse_entered():
+	if !healtComponent.is_death():
+		healtComponent.hit(1.0)
+
+
+func _on_healt_component_sg_hit(_healt, _hit_taken):
+	print("hit")

@@ -1,17 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://prpawadsl6pg"]
+[gd_scene load_steps=5 format=3 uid="uid://prpawadsl6pg"]
 
 [ext_resource type="Script" path="res://scenes/game/characters/Enemy.gd" id="1_lo1xo"]
-[ext_resource type="Texture2D" uid="uid://nt55g45jmow8" path="res://assets/icon.svg" id="1_s00xf"]
+[ext_resource type="Texture2D" uid="uid://b1vra0syyhrwf" path="res://assets/monster 1.png" id="2_inw8o"]
+[ext_resource type="Script" path="res://scenes/game/characters/HealtComponent.gd" id="3_pgt7p"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hlh8q"]
-radius = 61.0737
+radius = 48.1664
 
-[node name="CharacterBody2D" type="CharacterBody2D"]
+[node name="Enemy" type="CharacterBody2D"]
+input_pickable = true
 motion_mode = 1
 script = ExtResource("1_lo1xo")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_s00xf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_hlh8q")
@@ -21,3 +20,22 @@ target_desired_distance = 102.58
 avoidance_enabled = true
 radius = 100.0
 debug_enabled = true
+
+[node name="Body" type="Polygon2D" parent="."]
+texture = ExtResource("2_inw8o")
+polygon = PackedVector2Array(3.46983, -44.2271, -16.1447, -40.8578, -33.9543, -28.1023, -41.6557, -5.35902, -37.5643, 15.2182, -23.9665, 33.7497, -5.43493, 39.2851, 11.2916, 41.3308, 26.4538, 37.8411, 34.5162, 32.7871, 39.6906, 24.3636, 46.309, 0.898378, 47.8733, -6.80304, 46.67, -14.7451, 38.4872, -26.4176, 27.7774, -34.9613, 14.4203, -43.5051)
+uv = PackedVector2Array(609.783, 242.391, 432.609, 272.826, 271.739, 388.043, 202.174, 593.478, 239.13, 779.348, 361.957, 946.739, 529.348, 996.739, 680.435, 1015.22, 817.391, 983.696, 890.217, 938.043, 936.956, 861.957, 996.739, 650, 1010.87, 580.435, 1000, 508.696, 926.087, 403.261, 829.348, 326.087, 708.696, 248.913)
+
+[node name="Eye" type="Polygon2D" parent="."]
+position = Vector2(0, -1)
+texture = ExtResource("2_inw8o")
+polygon = PackedVector2Array(-0.605715, -13.4031, -10.4502, -10.7457, -25.4888, 1.57504, -9.24233, 15.0433, -0.605715, 17.6403, 8.87644, 14.077, 24.7606, 2.17899, 8.75565, -10.6249)
+uv = PackedVector2Array(280.864, 24.6914, 164.198, 64.8148, 26.5432, 177.778, 192.593, 315.432, 280.864, 341.975, 377.778, 305.556, 540.123, 183.951, 451.235, 109.259)
+
+[node name="HealtComponent" type="Node" parent="."]
+script = ExtResource("3_pgt7p")
+init_max_healt = 5.0
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="sg_death" from="HealtComponent" to="." method="_on_healt_component_sg_death"]
+[connection signal="sg_hit" from="HealtComponent" to="." method="_on_healt_component_sg_hit"]

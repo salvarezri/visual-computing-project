@@ -7,6 +7,5 @@
 
 [node name="NavRegMouseShape" parent="." instance=ExtResource("1_adsd3")]
 
-[node name="CharacterBody2D" parent="." instance=ExtResource("1_1wk44")]
-position = Vector2(-32, 233)
-scale = Vector2(0.226673, 0.226673)
+[node name="Enemy" parent="." instance=ExtResource("1_1wk44")]
+position = Vector2(-88, 208)

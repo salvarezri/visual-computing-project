@@ -120,7 +120,6 @@ func broke_polygon():
 	var lastpoint : Vector2 = lines_points[last_line][-1]
 	lines_points.append([lastpoint])
 	last_line += 1
-	print("broke")
 	group_gen = gen_unique_string(25)
 
 func update_polygon():
@@ -134,7 +133,6 @@ func delete_polygon_children():
 		x+=1
 		if child.is_in_group(group_gen):
 			child.queue_free()
-	print(x)
 
 func add_polygon():
 	for arr in obtain_polygon(last_line):
