@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 @export var speed: float = 300
 @export var acc: float = 7
+@export var target: Player
 @onready var nav: NavigationAgent2D = $NavigationAgent2D
 @onready var healtComponent: HealtComponent = $HealtComponent
 
@@ -17,7 +18,7 @@ func _process(delta):
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction = get_global_mouse_position()
-	nav.target_position = get_global_mouse_position()
+	nav.target_position = target.position
 	
 	direction = nav.get_next_path_position() - global_position
 	direction = direction.normalized()

@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://prpawadsl6pg"]
+[gd_scene load_steps=6 format=3 uid="uid://prpawadsl6pg"]
 
 [ext_resource type="Script" path="res://scenes/game/characters/Enemy.gd" id="1_lo1xo"]
 [ext_resource type="Texture2D" uid="uid://b1vra0syyhrwf" path="res://assets/monster 1.png" id="2_inw8o"]
 [ext_resource type="Script" path="res://scenes/game/characters/HealtComponent.gd" id="3_pgt7p"]
+[ext_resource type="Script" path="res://scenes/game/characters/VelocityComponent.gd" id="4_sx8gl"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hlh8q"]
 radius = 48.1664
@@ -35,6 +36,9 @@ uv = PackedVector2Array(280.864, 24.6914, 164.198, 64.8148, 26.5432, 177.778, 19
 [node name="HealtComponent" type="Node" parent="."]
 script = ExtResource("3_pgt7p")
 init_max_healt = 5.0
+
+[node name="VelocityComponent" type="Node" parent="."]
+script = ExtResource("4_sx8gl")
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="sg_death" from="HealtComponent" to="." method="_on_healt_component_sg_death"]
