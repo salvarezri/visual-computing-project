@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://b6mrv2wk6g7xl"]
+
+[ext_resource type="Script" path="res://scenes/game/systems/characters systems/HealtComponent.gd" id="1_5oaet"]
+
+[node name="HealtComponent" type="Node"]
+script = ExtResource("1_5oaet")
+init_max_healt = 5.0

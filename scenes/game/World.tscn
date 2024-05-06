@@ -1,25 +1,17 @@
-[gd_scene load_steps=9 format=3 uid="uid://ca3ocit68ttdq"]
+[gd_scene load_steps=6 format=3 uid="uid://ca3ocit68ttdq"]
 
-[ext_resource type="PackedScene" uid="uid://prpawadsl6pg" path="res://scenes/game/characters/Enemy.tscn" id="1_1wk44"]
 [ext_resource type="PackedScene" uid="uid://7ymqp7ye0ffg" path="res://scenes/game/elements/NavRegMouseShape.tscn" id="1_adsd3"]
 [ext_resource type="Script" path="res://scenes/game/World.gd" id="1_o0s6y"]
-[ext_resource type="PackedScene" uid="uid://ctlvqyb5ouflr" path="res://scenes/game/systems/StagesTimer.tscn" id="2_nv0am"]
+[ext_resource type="PackedScene" uid="uid://prpawadsl6pg" path="res://scenes/game/characters/enemies/Enemy.tscn" id="3_lv77j"]
 [ext_resource type="PackedScene" uid="uid://bwasko7uhi3sk" path="res://scenes/game/characters/Player.tscn" id="3_rh8y1"]
-[ext_resource type="Script" path="res://scenes/game/SpawnHandler.gd" id="5_8yxw1"]
-[ext_resource type="Script" path="res://scenes/game/Path2D.gd" id="5_mwq7f"]
-
-[sub_resource type="Curve2D" id="Curve2D_avhut"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, -64, -64, 0, 0, 0, 0, 1984, -64, 0, 0, 0, 0, 1984, 1144, 0, 0, 0, 0, -64, 1136, 0, 0, 0, 0, -64, -64)
-}
-point_count = 5
+[ext_resource type="PackedScene" uid="uid://b8q6wmeg5icr8" path="res://scenes/game/systems/stages/spawn_handler.tscn" id="5_8joer"]
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_o0s6y")
 
 [node name="NavRegMouseShape" parent="." instance=ExtResource("1_adsd3")]
 
-[node name="Enemy" parent="." node_paths=PackedStringArray("target") instance=ExtResource("1_1wk44")]
+[node name="Enemy" parent="." node_paths=PackedStringArray("target") instance=ExtResource("3_lv77j")]
 position = Vector2(-88, 208)
 speed = 50.0
 acc = 4.0
@@ -28,21 +20,4 @@ target = NodePath("../Player")
 [node name="Player" parent="." instance=ExtResource("3_rh8y1")]
 position = Vector2(960, 540)
 
-[node name="SpawnHandler" type="Node" parent="."]
-script = ExtResource("5_8yxw1")
-enemies = Array[PackedScene]([ExtResource("1_1wk44")])
-player = NodePath("../Player")
-
-[node name="StagesTimer" parent="SpawnHandler" instance=ExtResource("2_nv0am")]
-stages_number = 3
-sub_stages = 3
-time_of_stage = 30.0
-
-[node name="SpawnLocationHandler" type="Path2D" parent="SpawnHandler"]
-curve = SubResource("Curve2D_avhut")
-script = ExtResource("5_mwq7f")
-
-[node name="PathFollow2D" type="PathFollow2D" parent="SpawnHandler/SpawnLocationHandler"]
-position = Vector2(-64, -64)
-
-[connection signal="sub_stage_time" from="SpawnHandler/StagesTimer" to="SpawnHandler" method="_on_stages_timer_sub_stage_time"]
+[node name="SpawnHandler" parent="." instance=ExtResource("5_8joer")]

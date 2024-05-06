@@ -100,7 +100,8 @@ func mid_points():
 	else:
 		# if the rotation is higer tha 90 degrees, split the line and start another
 		curr_angle = prev_prev_pos.angle_to_point(prev_pos)
-		if abs(carry_angle - curr_angle) > PI/2:
+		# TODO if cur line is too long, broke
+		if abs(carry_angle - curr_angle) > PI/2 || get_len_of_line(lines_points[last_line])> 150.0:
 			broke_polygon()
 			carry_angle = curr_angle
 	lines_points[last_line].append(get_viewport().get_mouse_position())
@@ -231,5 +232,11 @@ func generate_Shape(group:String =group_gen):
 func get_group_gen() -> String:
 	return group_gen
 			
-	
+func get_len_of_line(line: PackedVector2Array) -> float:
+	if len(line)<2:
+		return 0
+	var cur_length = 0
+	for i in len(line)-1:
+		cur_length += line[i].distance_to(line[i+1])
+	return cur_length
 	

@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://b8q6wmeg5icr8"]
+
+[ext_resource type="Script" path="res://scenes/game/systems/stages/SpawnHandler.gd" id="1_wltfp"]
+[ext_resource type="PackedScene" uid="uid://prpawadsl6pg" path="res://scenes/game/characters/enemies/Enemy.tscn" id="2_bycr4"]
+[ext_resource type="PackedScene" uid="uid://ctlvqyb5ouflr" path="res://scenes/game/systems/stages/StagesTimer.tscn" id="3_y0nk5"]
+[ext_resource type="Script" path="res://scenes/game/systems/stages/SpawnLocationHandler.gd" id="4_j4br4"]
+
+[sub_resource type="Curve2D" id="Curve2D_avhut"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -64, -64, 0, 0, 0, 0, 1984, -64, 0, 0, 0, 0, 1984, 1144, 0, 0, 0, 0, -64, 1136, 0, 0, 0, 0, -64, -64)
+}
+point_count = 5
+
+[node name="SpawnHandler" type="Node"]
+script = ExtResource("1_wltfp")
+enemies = Array[PackedScene]([ExtResource("2_bycr4")])
+player = NodePath("../Player")
+
+[node name="StagesTimer" parent="." instance=ExtResource("3_y0nk5")]
+stages_number = 3
+sub_stages = 3
+time_of_stage = 30.0
+
+[node name="SpawnLocationHandler" type="Path2D" parent="."]
+curve = SubResource("Curve2D_avhut")
+script = ExtResource("4_j4br4")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="SpawnLocationHandler"]
+position = Vector2(-64, -64)
+
+[node name="_Timer_65781" type="Timer" parent="SpawnLocationHandler/PathFollow2D"]
+wait_time = 0.2
+one_shot = true
+
+[connection signal="sub_stage_time" from="StagesTimer" to="." method="_on_stages_timer_sub_stage_time"]

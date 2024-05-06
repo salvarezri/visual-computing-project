@@ -10,14 +10,16 @@ extends Node
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	stage_timer.start_stages()
+	pass
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
 
-
+func start():
+	stage_timer.start_stages()
+	
 
 func _on_stages_timer_sub_stage_time(stage, last_sub_stage, boss_stage):
 	var locations: Array[Vector2] = spawn_location_Handler.get_mobs_location(number,0.1,randf())

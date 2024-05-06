@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scenes/_debug/TestingShaders.gd" id="1_cnsel"]
 [ext_resource type="Shader" path="res://assets/shaders/TestingShaders.gdshader" id="1_p2oub"]
-[ext_resource type="PackedScene" uid="uid://dfwc0dfw20run" path="res://scenes/game/systems/PolygonByMouse.tscn" id="2_t74my"]
+[ext_resource type="PackedScene" uid="uid://dfwc0dfw20run" path="res://scenes/game/systems/powers/PolygonByMouse.tscn" id="2_t74my"]
 [ext_resource type="Script" path="res://scenes/_debug/SubViewport.gd" id="2_uuu3a"]
 [ext_resource type="Shader" path="res://assets/shaders/new_shader.gdshader" id="2_yjapx"]
 [ext_resource type="PackedScene" uid="uid://bwasko7uhi3sk" path="res://scenes/game/characters/Player.tscn" id="3_lfufo"]

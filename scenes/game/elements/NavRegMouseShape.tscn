@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://7ymqp7ye0ffg"]
 
 [ext_resource type="Script" path="res://scenes/game/elements/NavRegMouseShape.gd" id="1_ptnif"]
-[ext_resource type="PackedScene" uid="uid://dfwc0dfw20run" path="res://scenes/game/systems/PolygonByMouse.tscn" id="2_lnfo5"]
+[ext_resource type="PackedScene" uid="uid://dfwc0dfw20run" path="res://scenes/game/systems/powers/PolygonByMouse.tscn" id="2_v1df5"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_rbe4d"]
 vertices = PackedVector2Array(2163, 1310, 10, 1310, 10, 10, 2163, 10)
@@ -14,7 +14,7 @@ scale = Vector2(0.88354, 0.81802)
 navigation_polygon = SubResource("NavigationPolygon_rbe4d")
 script = ExtResource("1_ptnif")
 
-[node name="PolygonByMouse" parent="." instance=ExtResource("2_lnfo5")]
+[node name="PolygonByMouse" parent="." instance=ExtResource("2_v1df5")]
 polygon_width = 5.0
 limit_max_lenght = false
 

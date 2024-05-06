@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dfwc0dfw20run"]
+
+[ext_resource type="Script" path="res://scenes/game/systems/powers/PolygonByMouse.gd" id="1_cprb5"]
+
+[node name="PolygonByMouse" type="Node2D"]
+script = ExtResource("1_cprb5")

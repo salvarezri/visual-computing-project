@@ -1,9 +1,9 @@
 [gd_scene load_steps=2 format=3 uid="uid://ctlvqyb5ouflr"]
 
-[ext_resource type="Script" path="res://scenes/game/systems/StagesTimer.gd" id="1_plyk1"]
+[ext_resource type="Script" path="res://scenes/game/systems/stages/StagesTimer.gd" id="1_vbjdp"]
 
 [node name="StagesTimer" type="Node"]
-script = ExtResource("1_plyk1")
+script = ExtResource("1_vbjdp")
 
 [node name="SubStageTimer" type="Timer" parent="."]
 
