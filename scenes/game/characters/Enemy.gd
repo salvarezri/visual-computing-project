@@ -1,3 +1,4 @@
+class_name Enemy
 extends CharacterBody2D
 
 @export var speed: float = 300
@@ -29,7 +30,7 @@ func _process(delta):
 
 
 func _on_healt_component_sg_death(_remaining_damage):
-	print(":c")
+	queue_free()
 
 
 func _on_mouse_entered():

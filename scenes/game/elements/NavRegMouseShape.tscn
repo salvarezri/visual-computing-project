@@ -4,9 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://dfwc0dfw20run" path="res://scenes/game/systems/PolygonByMouse.tscn" id="2_lnfo5"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_rbe4d"]
-vertices = PackedVector2Array(1294, 782, 10, 782, 10, 10, 1294, 10)
+vertices = PackedVector2Array(2163, 1310, 10, 1310, 10, 10, 2163, 10)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(0, 0, 1303.85, 0, 1303.85, 792.156, 0, 792.156)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(0, 0, 2173.08, 0, 2173.08, 1320.26, 0, 1320.26)])
 source_geometry_group_name = &"navigation_polygon_source_group"
 
 [node name="NavRegMouseShape" type="NavigationRegion2D"]
