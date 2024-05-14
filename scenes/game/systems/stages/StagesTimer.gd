@@ -47,7 +47,6 @@ func _on_sub_stage_timer_timeout():
 	start_timer()
 
 func step() -> bool:
-	print("aaaaaaaa")
 	if curr_stage >= stages_number:
 		return false
 	nex_stage()

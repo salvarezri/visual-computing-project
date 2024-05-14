@@ -7,9 +7,9 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_hlh8q"]
 radius = 48.1664
 
-[node name="Enemy" type="CharacterBody2D"]
-input_pickable = true
-motion_mode = 1
+[node name="Enemy" type="Area2D"]
+collision_layer = 7
+collision_mask = 2
 script = ExtResource("1_rgckv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
