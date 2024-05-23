@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://ca3ocit68ttdq"]
+[gd_scene load_steps=10 format=3 uid="uid://ca3ocit68ttdq"]
 
 [ext_resource type="PackedScene" uid="uid://7ymqp7ye0ffg" path="res://scenes/game/elements/NavRegMouseShape.tscn" id="1_adsd3"]
 [ext_resource type="Script" path="res://scenes/game/World.gd" id="1_o0s6y"]
@@ -7,6 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://b8q6wmeg5icr8" path="res://scenes/game/systems/stages/spawn_handler.tscn" id="5_8joer"]
 [ext_resource type="PackedScene" uid="uid://cadl0mvdnces8" path="res://scenes/game/systems/powers/Splash.tscn" id="6_xsior"]
 [ext_resource type="PackedScene" uid="uid://dmrvkw0mxcjbl" path="res://scenes/game/systems/powers/splash_generator.tscn" id="7_265or"]
+[ext_resource type="Script" path="res://scenes/game/systems/powers/RayGenerator.gd" id="8_eouj1"]
+[ext_resource type="PackedScene" uid="uid://rjc7c85gqoyn" path="res://scenes/game/systems/powers/ray.tscn" id="9_wukmr"]
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_o0s6y")
@@ -32,6 +34,12 @@ position = Vector2(960, 540)
 position = Vector2(430, 402)
 
 [node name="SplashGenerator" parent="." instance=ExtResource("7_265or")]
-active = true
+active = null
+group_name = null
+
+[node name="RayGenerator" type="Node2D" parent="."]
+script = ExtResource("8_eouj1")
+
+[node name="Ray" parent="." instance=ExtResource("9_wukmr")]
 
 [editable path="NavRegMouseShape"]
