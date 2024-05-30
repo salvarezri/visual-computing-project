@@ -1,13 +1,44 @@
 class_name Player
-extends Area2D
+extends CharacterBody2D
 
+signal hit
 
-const SPEED = 300.0
-const JUMP_VELOCITY = -400.0
+@export var ACCELERATION = 0
+@export var MAX_SPEED = 0
+@export var FRICTION = 0
 
-# Get the gravity from the project settings to be synced with RigidBody nodes.
+var waiting_to_shot: bool = false
 
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.  
 
-func _physics_process(_delta):
-	var direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+func _input(event):
+	pass
+
+func _physics_process(delta):
+	motion_ctrl(delta)
+	
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta):
+	rotation_ctrl()
+
+func rotation_ctrl():
+	look_at(get_global_mouse_position())
+	# ajust rotation
+	rotation = rotation-PI/2
+
+func motion_ctrl(delta):
+	# moovement
+	# detect input
+	var direction = Input.get_vector("ui_left","ui_right","ui_up","ui_down")
+	if direction.length() > 0:
+		# acelerate and handle max speed
+		velocity = velocity.move_toward(direction * MAX_SPEED , ACCELERATION * delta)
+	else :
+		# stop
+		velocity = velocity.move_toward(Vector2.ZERO, FRICTION * delta)
+
+	move_and_slide()
 	pass

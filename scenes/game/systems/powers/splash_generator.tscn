@@ -1,8 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://dmrvkw0mxcjbl"]
+[gd_scene load_steps=2 format=3 uid="uid://dmrvkw0mxcjbl"]
 
 [ext_resource type="Script" path="res://scenes/game/systems/powers/splash_generator.gd" id="1_l4d3o"]
-[ext_resource type="PackedScene" uid="uid://cadl0mvdnces8" path="res://scenes/game/systems/powers/Splash.tscn" id="2_8up5v"]
 
 [node name="SplashGenerator" type="Node2D"]
 script = ExtResource("1_l4d3o")
-splaschScene = ExtResource("2_8up5v")

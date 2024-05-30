@@ -21,11 +21,13 @@ func _process(delta):
 	pass
 
 func hit_enemies_inside():
-	for enemie in get_overlapping_areas():
+	for enemie in get_overlapping_bodies():
+		print("area")
 		if enemie.has_method("take_damage"):
 			enemie.take_damage(damage)	
 
 func _on_timer_to_hit_timeout():
+	print("timeeee")
 	hit_enemies_inside()
 		
 

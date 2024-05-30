@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://rjc7c85gqoyn"]
+[gd_scene load_steps=5 format=3 uid="uid://rjc7c85gqoyn"]
+
+[ext_resource type="Script" path="res://scenes/game/systems/powers/ray.gd" id="1_hnp3e"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xln5y"]
-radius = 30.0167
+radius = 10.198
 
 [sub_resource type="Gradient" id="Gradient_5wyux"]
 offsets = PackedFloat32Array(0, 0.269231, 0.508547, 0.692308)
@@ -13,9 +15,20 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 
 [node name="Ray" type="Area2D"]
+script = ExtResource("1_hnp3e")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_xln5y")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0, 0.509804, 1, 1)
+position = Vector2(-1.19209e-07, -1.19209e-07)
+scale = Vector2(0.304688, 0.304688)
 texture = SubResource("GradientTexture2D_37mup")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
