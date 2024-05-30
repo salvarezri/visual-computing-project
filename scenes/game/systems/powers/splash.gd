@@ -27,7 +27,7 @@ func hit_enemies_inside():
 			enemie.take_damage(damage)	
 
 func _on_timer_to_hit_timeout():
-	print("timeeee")
+	#print("timeeee")
 	hit_enemies_inside()
 		
 

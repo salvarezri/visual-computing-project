@@ -1,0 +1,112 @@
+[gd_scene load_steps=10 format=3 uid="uid://ce8uwfb26p8ma"]
+
+[ext_resource type="Script" path="res://scenes/ui/GameUi.gd" id="1_5416x"]
+[ext_resource type="Theme" uid="uid://b2d7112yucgp8" path="res://scenes/ui/main theme.tres" id="1_uidgp"]
+[ext_resource type="Texture2D" uid="uid://mwj8ehalj28w" path="res://assets/UI/asset/png@3x/Icon/heart.png" id="2_k65wu"]
+[ext_resource type="Texture2D" uid="uid://w7agymhl30te" path="res://assets/UI/asset/png@3x/Icon/lighting.png" id="5_ujju5"]
+[ext_resource type="PackedScene" uid="uid://bv0wcs3b83ap2" path="res://scenes/ui/powerCard.tscn" id="7_hwwmg"]
+[ext_resource type="Texture2D" uid="uid://ea0cc17jdyqq" path="res://assets/UI/asset/png@3x/ProgressBar/no_color_background.png" id="8_4if5f"]
+[ext_resource type="Texture2D" uid="uid://ckxysec7r0fpc" path="res://assets/UI/asset/png@3x/ProgressBar/no_color_progress.png" id="9_olrm0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u4to4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wbllu"]
+
+[node name="GameUi" type="CanvasLayer"]
+script = ExtResource("1_5416x")
+
+[node name="Stats" type="PanelContainer" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -472.0
+offset_top = -144.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_horizontal = 8
+theme = ExtResource("1_uidgp")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_u4to4")
+
+[node name="MarginContainer" type="MarginContainer" parent="Stats"]
+layout_mode = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="GridContainer" type="GridContainer" parent="Stats/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+columns = 2
+
+[node name="TextureRect" type="TextureRect" parent="Stats/MarginContainer/GridContainer"]
+layout_mode = 2
+texture = ExtResource("2_k65wu")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="ProgressBarLife" type="TextureProgressBar" parent="Stats/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+value = 50.0
+nine_patch_stretch = true
+stretch_margin_left = 15
+stretch_margin_top = 15
+stretch_margin_right = 15
+stretch_margin_bottom = 15
+texture_under = ExtResource("8_4if5f")
+texture_progress = ExtResource("9_olrm0")
+tint_under = Color(1, 0.0196078, 0.27451, 1)
+tint_progress = Color(1, 0.0196078, 0.27451, 1)
+
+[node name="TextureRect2" type="TextureRect" parent="Stats/MarginContainer/GridContainer"]
+layout_mode = 2
+texture = ExtResource("5_ujju5")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="ProgressBarMana" type="TextureProgressBar" parent="Stats/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+value = 50.0
+nine_patch_stretch = true
+stretch_margin_left = 15
+stretch_margin_top = 15
+stretch_margin_right = 15
+stretch_margin_bottom = 15
+texture_under = ExtResource("8_4if5f")
+texture_progress = ExtResource("9_olrm0")
+tint_under = Color(0, 0.596078, 0.858824, 1)
+tint_progress = Color(0, 0.596078, 0.858824, 1)
+
+[node name="SubViewport" type="SubViewport" parent="."]
+disable_3d = true
+
+[node name="Powers" type="PanelContainer" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = -256.0
+offset_right = 187.0
+offset_bottom = -13.0
+grow_vertical = 0
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme = ExtResource("1_uidgp")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_wbllu")
+
+[node name="MarginContainer" type="MarginContainer" parent="Powers"]
+layout_mode = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Powers/MarginContainer"]
+layout_mode = 2
+
+[node name="PowerCard" parent="Powers/MarginContainer/HBoxContainer" instance=ExtResource("7_hwwmg")]
+layout_mode = 2

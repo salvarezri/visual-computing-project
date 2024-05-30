@@ -1,0 +1,124 @@
+[gd_scene load_steps=13 format=3 uid="uid://bv0wcs3b83ap2"]
+
+[ext_resource type="Texture2D" uid="uid://c0fe2rop0dkow" path="res://assets/UI/asset/png@3x/ProgressBar/no_color_background_small.png" id="1_lmf3m"]
+[ext_resource type="Script" path="res://scenes/ui/powerCard.gd" id="1_s6wrc"]
+[ext_resource type="Texture2D" uid="uid://dncaxjwukkys0" path="res://assets/UI/asset/png@3x/ProgressBar/no_color_progress_small.png" id="2_s0kyf"]
+[ext_resource type="Texture2D" uid="uid://ch5y5nwpykair" path="res://assets/UI/asset/png@3x/ProgressBar/lighting.png" id="3_fkaqq"]
+[ext_resource type="Texture2D" uid="uid://crmpxhi5mf28h" path="res://assets/UI/asset/png@3x/Icon/power.png" id="4_62unr"]
+[ext_resource type="Texture2D" uid="uid://8encg7vbo60q" path="res://assets/UI/asset/png@3x/Icon/clock.png" id="5_x3x8u"]
+
+[sub_resource type="Gradient" id="Gradient_l2hhf"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_xlrkt"]
+gradient = SubResource("Gradient_l2hhf")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_qdqbr"]
+offsets = PackedFloat32Array(0, 0.116608, 0.378092, 0.893993, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.522968, 0.522968, 0.522968, 1, 0.883604, 0.883604, 0.883604, 1, 0.896831, 0.896831, 0.896831, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_a02dk"]
+gradient = SubResource("Gradient_qdqbr")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_rl5iv"]
+offsets = PackedFloat32Array(0, 0.696113)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_rsoec"]
+gradient = SubResource("Gradient_rl5iv")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="PowerCard" type="PanelContainer"]
+size_flags_horizontal = 3
+script = ExtResource("1_s6wrc")
+
+[node name="V" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="V"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Power"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="ButtonImg" type="TextureButton" parent="V"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+action_mode = 0
+texture_normal = SubResource("GradientTexture2D_xlrkt")
+texture_pressed = SubResource("GradientTexture2D_a02dk")
+texture_hover = SubResource("GradientTexture2D_rsoec")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Progress" type="TextureProgressBar" parent="V"]
+layout_mode = 2
+value = 50.0
+nine_patch_stretch = true
+stretch_margin_left = 6
+stretch_margin_top = 6
+stretch_margin_right = 6
+stretch_margin_bottom = 6
+texture_under = ExtResource("1_lmf3m")
+texture_progress = ExtResource("2_s0kyf")
+
+[node name="H" type="HBoxContainer" parent="V"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="V" type="VBoxContainer" parent="V/H"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="V/H/V"]
+custom_minimum_size = Vector2(15, 15)
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("3_fkaqq")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="EnergyLabel" type="Label" parent="V/H/V"]
+layout_mode = 2
+text = "4"
+horizontal_alignment = 1
+
+[node name="V2" type="VBoxContainer" parent="V/H"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="V/H/V2"]
+custom_minimum_size = Vector2(15, 15)
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("4_62unr")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="PowerLable" type="Label" parent="V/H/V2"]
+layout_mode = 2
+text = "4"
+horizontal_alignment = 1
+
+[node name="V3" type="VBoxContainer" parent="V/H"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="V/H/V3"]
+custom_minimum_size = Vector2(15, 15)
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("5_x3x8u")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TimeLable" type="Label" parent="V/H/V3"]
+layout_mode = 2
+text = "4"
+horizontal_alignment = 1
+
+[connection signal="pressed" from="V/ButtonImg" to="." method="_on_button_img_pressed"]

@@ -1,0 +1,21 @@
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://b2d7112yucgp8"]
+
+[ext_resource type="FontFile" uid="uid://b1nvunuthu7sa" path="res://assets/UI/fonts/JosefinSans-Regular.ttf" id="1_llsxi"]
+[ext_resource type="Texture2D" uid="uid://cnwaonqt7cyk6" path="res://assets/UI/asset/png@3x/Panel/Body/Headless@3x.png" id="2_53uuw"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_du45k"]
+texture = ExtResource("2_53uuw")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 22.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uigkb"]
+
+[resource]
+default_font = ExtResource("1_llsxi")
+Label/font_sizes/font_size = 20
+Label/fonts/font = ExtResource("1_llsxi")
+PanelContainer/styles/panel = SubResource("StyleBoxTexture_du45k")
+transparent_panel/base_type = &"PanelContainer"
+transparent_panel/styles/panel = SubResource("StyleBoxEmpty_uigkb")

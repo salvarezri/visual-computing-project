@@ -39,6 +39,6 @@ func motion_ctrl(delta):
 	else :
 		# stop
 		velocity = velocity.move_toward(Vector2.ZERO, FRICTION * delta)
-
+	
 	move_and_slide()
 	pass

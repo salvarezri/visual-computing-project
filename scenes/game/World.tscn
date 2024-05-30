@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://ca3ocit68ttdq"]
+[gd_scene load_steps=16 format=3 uid="uid://ca3ocit68ttdq"]
 
 [ext_resource type="PackedScene" uid="uid://7ymqp7ye0ffg" path="res://scenes/game/elements/NavRegMouseShape.tscn" id="1_adsd3"]
 [ext_resource type="Script" path="res://scenes/game/World.gd" id="1_o0s6y"]
@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://rjc7c85gqoyn" path="res://scenes/game/systems/powers/ray.tscn" id="9_wukmr"]
 
 [sub_resource type="Gradient" id="Gradient_yrt06"]
-colors = PackedColorArray(0.0352941, 0.00392157, 0.0509804, 1, 0.137301, 0.0241967, 0.170984, 1)
+colors = PackedColorArray(0.0352941, 0.00392157, 0.0509804, 1, 0.0352941, 0.00392157, 0.0509804, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_kgm7r"]
 gradient = SubResource("Gradient_yrt06")
@@ -19,19 +19,33 @@ width = 1000
 height = 1000
 fill_to = Vector2(1, 1)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sbeh7"]
+size = Vector2(250, 1492)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xbih5"]
+size = Vector2(282, 1308)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bagw2"]
+size = Vector2(1921, 165)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_37iuf"]
+size = Vector2(2182, 216)
+
 [node name="World" type="Node2D"]
 script = ExtResource("1_o0s6y")
-
-[node name="background" type="Sprite2D" parent="."]
-position = Vector2(966, 534)
-scale = Vector2(2.004, 1.156)
-texture = SubResource("GradientTexture2D_kgm7r")
 
 [node name="NavRegMouseShape" parent="." instance=ExtResource("1_adsd3")]
 
 [node name="PolygonByMouse" parent="NavRegMouseShape" index="0"]
 polygon_width = 20.0
 sampling_distance = 25.0
+active = false
+
+[node name="background" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(966, 534)
+scale = Vector2(2.004, 1.156)
+texture = SubResource("GradientTexture2D_kgm7r")
 
 [node name="Enemy" parent="." node_paths=PackedStringArray("target") instance=ExtResource("3_lv77j")]
 position = Vector2(-88, 208)
@@ -39,22 +53,46 @@ target = NodePath("../Player")
 
 [node name="Player" parent="." instance=ExtResource("3_rh8y1")]
 position = Vector2(960, 540)
+collision_layer = 9
 ACCELERATION = 494
 MAX_SPEED = 542
 FRICTION = 582
 
 [node name="SpawnHandler" parent="." instance=ExtResource("5_8joer")]
 
-[node name="Splash" parent="." instance=ExtResource("6_xsior")]
-position = Vector2(430, 402)
-
 [node name="PowerGenerator" parent="." instance=ExtResource("7_265or")]
 power_scenes = Array[PackedScene]([ExtResource("6_xsior"), ExtResource("9_wukmr")])
-power_selector = 1
+active = true
 
 [node name="RayGenerator" type="Node2D" parent="."]
 script = ExtResource("8_eouj1")
 
-[node name="Ray" parent="." instance=ExtResource("9_wukmr")]
+[node name="Walls" type="Node2D" parent="."]
+visible = false
+
+[node name="LeftWall" type="StaticBody2D" parent="Walls"]
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/LeftWall"]
+position = Vector2(-125, 526)
+shape = SubResource("RectangleShape2D_sbeh7")
+
+[node name="RightWall" type="StaticBody2D" parent="Walls"]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Walls/RightWall"]
+position = Vector2(2062, 653)
+shape = SubResource("RectangleShape2D_xbih5")
+
+[node name="BottomWall" type="StaticBody2D" parent="Walls"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/BottomWall"]
+position = Vector2(960.5, 1162.5)
+shape = SubResource("RectangleShape2D_bagw2")
+
+[node name="UpperWall" type="StaticBody2D" parent="Walls"]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Walls/UpperWall"]
+position = Vector2(1081, -108)
+shape = SubResource("RectangleShape2D_37iuf")
 
 [editable path="NavRegMouseShape"]
