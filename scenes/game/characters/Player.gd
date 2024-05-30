@@ -8,6 +8,7 @@ signal hit
 @export var FRICTION = 0
 
 var waiting_to_shot: bool = false
+var speed = 500
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -18,6 +19,7 @@ func _input(event):
 
 func _physics_process(delta):
 	motion_ctrl(delta)
+	velocity = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")*speed
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
