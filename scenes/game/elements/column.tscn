@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=3 uid="uid://rxn0yceg2qc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kx4jp"]
+size = Vector2(83.5, 75.75)
+
+[sub_resource type="Gradient" id="Gradient_0eh7m"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_rp6kb"]
+gradient = SubResource("Gradient_0eh7m")
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_vqnq4"]
+polygon = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+
+[sub_resource type="Gradient" id="Gradient_ysohk"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.268707, 0.530612, 0.738095, 0.884354, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.525101, 0.525101, 0.525101, 1, 0.170595, 0.170595, 0.170594, 1, 0.0434858, 0.0434858, 0.0434858, 1, 0.0201996, 0.0201996, 0.0201996, 1, 0.0201996, 0.0201996, 0.0201996, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_5myhd"]
+gradient = SubResource("Gradient_ysohk")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="column" type="StaticBody2D"]
+collision_layer = 7
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_kx4jp")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.152941, 0, 0.133333, 1)
+texture = SubResource("GradientTexture2D_rp6kb")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_vqnq4")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(-2, 1)
+scale = Vector2(14.3125, 12.1625)
+energy = 2.2
+shadow_enabled = true
+shadow_item_cull_mask = 2
+texture = SubResource("GradientTexture2D_5myhd")

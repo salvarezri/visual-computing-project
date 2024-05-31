@@ -1,7 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://bwasko7uhi3sk"]
+[gd_scene load_steps=5 format=3 uid="uid://bwasko7uhi3sk"]
 
 [ext_resource type="Script" path="res://scenes/game/characters/Player.gd" id="1_prgxf"]
 [ext_resource type="PackedScene" uid="uid://b6mrv2wk6g7xl" path="res://scenes/game/systems/characters systems/healt_component.tscn" id="2_08huw"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3wyol"]
+radius = 91.8931
+height = 261.17
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_twgpu"]
+polygon = PackedVector2Array(0.13623, -48.3647, -111.239, -0.312744, -48.4873, 43.3923, -0.557617, 198.296, 53.0928, 38.8416, 111.239, 0.312988)
 
 [node name="Player" type="CharacterBody2D"]
 z_index = 2
@@ -16,8 +23,14 @@ MAX_SPEED = 27
 FRICTION = 7
 healt_comp_path = NodePath("HealtComponent")
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-4.9725, 48.3512)
+scale = Vector2(1, 1)
+shape = SubResource("CapsuleShape2D_3wyol")
+
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(0, -50, -110, -0.309344, -50, 40, 0, 200, 50, 40, 110, 0.309344)
+disabled = true
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 color = Color(0.0470588, 0.901961, 0.94902, 1)
@@ -29,6 +42,10 @@ polygon = PackedVector2Array(-85, 0, 0, -36, 85, 0, 0, 53)
 
 [node name="HealtComponent" parent="." instance=ExtResource("2_08huw")]
 init_max_healt = 3.0
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_twgpu")
+occluder_light_mask = 3
 
 [connection signal="sg_death" from="HealtComponent" to="." method="_on_healt_component_sg_death"]
 [connection signal="sg_hit" from="HealtComponent" to="." method="_on_healt_component_sg_hit"]

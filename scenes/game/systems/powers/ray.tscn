@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://rjc7c85gqoyn"]
+[gd_scene load_steps=7 format=3 uid="uid://rjc7c85gqoyn"]
 
 [ext_resource type="Script" path="res://scenes/game/systems/powers/ray.gd" id="1_hnp3e"]
 
@@ -14,8 +14,20 @@ gradient = SubResource("Gradient_5wyux")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 
+[sub_resource type="Gradient" id="Gradient_xc2q0"]
+offsets = PackedFloat32Array(0, 0.14966, 0.554422, 0.697279)
+colors = PackedColorArray(1, 1, 1, 1, 0.741385, 0.741385, 0.741385, 1, 0.170543, 0.170543, 0.170543, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ggja1"]
+gradient = SubResource("Gradient_xc2q0")
+width = 200
+height = 200
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
 [node name="Ray" type="Area2D"]
 z_index = 1
+position = Vector2(896, 472)
 script = ExtResource("1_hnp3e")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -28,8 +40,16 @@ scale = Vector2(0.304688, 0.304688)
 texture = SubResource("GradientTexture2D_37mup")
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 0.1
+wait_time = 0.15
 autostart = true
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(1.52588e-05, -1.52588e-05)
+scale = Vector2(4.9075, 4.9075)
+color = Color(0.0470588, 0.901961, 0.94902, 1)
+energy = 4.47
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_ggja1")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

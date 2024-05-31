@@ -4,8 +4,8 @@ extends Node2D
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$SpawnHandler.start()
-	var max = $Player.get_max_healt()
-	$GameUi.setup_life(0,max)
+	var max_h = $Player.get_max_healt()
+	$GameUi.setup_life(0,max_h)
 	pass
 
 

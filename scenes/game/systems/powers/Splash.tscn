@@ -7,8 +7,8 @@ radius = 138.014
 
 [sub_resource type="Gradient" id="Gradient_1muja"]
 interpolation_mode = 2
-offsets = PackedFloat32Array(0, 0.559322, 0.70339)
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+offsets = PackedFloat32Array(0, 0.0884354, 0.217687, 0.370748, 0.5, 0.744898, 0.911565, 1)
+colors = PackedColorArray(0.489622, 0.489622, 0.489622, 1, 0.336608, 0.336608, 0.336608, 1, 0.489624, 0.489622, 0.489621, 1, 0.415982, 0.41598, 0.41598, 1, 0.481789, 0.48179, 0.481789, 1, 0.340329, 0.340345, 0.340329, 0.0507222, 1, 1, 1, 0, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_o7jry"]
 gradient = SubResource("Gradient_1muja")
@@ -28,6 +28,7 @@ script = ExtResource("1_0yqiu")
 shape = SubResource("CircleShape2D_rqqki")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -1
 texture = SubResource("GradientTexture2D_o7jry")
 
 [node name="TimerToHit" type="Timer" parent="."]

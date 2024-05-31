@@ -1,7 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://prpawadsl6pg"]
+[gd_scene load_steps=5 format=3 uid="uid://prpawadsl6pg"]
 
 [ext_resource type="Script" path="res://scenes/game/characters/enemies/Enemy.gd" id="1_rgckv"]
 [ext_resource type="PackedScene" uid="uid://b6mrv2wk6g7xl" path="res://scenes/game/systems/characters systems/healt_component.tscn" id="3_xlxon"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xgitk"]
+radius = 143.541
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_01x8k"]
+polygon = PackedVector2Array(0, -106.443, -87.9312, -74.0473, -134.211, 78.6753, -55.5355, 0, 0, 208.258, 55.5355, 0, 134.211, 78.6753, 87.9312, -74.0473)
 
 [node name="Enemy" type="CharacterBody2D"]
 z_index = 2
@@ -12,15 +18,20 @@ motion_mode = 1
 script = ExtResource("1_rgckv")
 dmg_per_hit = 1
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-4.62796, 37.0237)
+scale = Vector2(1, 1)
+shape = SubResource("CircleShape2D_xgitk")
+
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(0, -104, -88, -72, -136, 80, -56, 0, 0, 208, 56, 0, 136, 80, 88, -72)
+disabled = true
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 target_desired_distance = 102.58
 path_max_distance = 400.0
 avoidance_enabled = true
 radius = 100.0
-debug_enabled = true
 
 [node name="HealtComponent" parent="." instance=ExtResource("3_xlxon")]
 
@@ -41,6 +52,10 @@ rotation = -3.14159
 scale = Vector2(1, -1)
 color = Color(0.152941, 0, 0.133333, 1)
 polygon = PackedVector2Array(-112, 40, -72, -56, -56, -64, -56, -16)
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_01x8k")
+occluder_light_mask = 3
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="sg_death" from="HealtComponent" to="." method="_on_healt_component_sg_death"]

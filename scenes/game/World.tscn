@@ -1,10 +1,11 @@
-[gd_scene load_steps=21 format=3 uid="uid://ca3ocit68ttdq"]
+[gd_scene load_steps=28 format=3 uid="uid://ca3ocit68ttdq"]
 
 [ext_resource type="PackedScene" uid="uid://7ymqp7ye0ffg" path="res://scenes/game/elements/NavRegMouseShape.tscn" id="1_adsd3"]
 [ext_resource type="Script" path="res://scenes/game/World.gd" id="1_o0s6y"]
 [ext_resource type="Script" path="res://global/power.gd" id="2_apbvs"]
 [ext_resource type="PackedScene" uid="uid://prpawadsl6pg" path="res://scenes/game/characters/enemies/Enemy.tscn" id="3_lv77j"]
 [ext_resource type="PackedScene" uid="uid://bwasko7uhi3sk" path="res://scenes/game/characters/Player.tscn" id="3_rh8y1"]
+[ext_resource type="PackedScene" uid="uid://rxn0yceg2qc" path="res://scenes/game/elements/column.tscn" id="4_137yi"]
 [ext_resource type="PackedScene" uid="uid://b8q6wmeg5icr8" path="res://scenes/game/systems/stages/spawn_handler.tscn" id="5_8joer"]
 [ext_resource type="PackedScene" uid="uid://cadl0mvdnces8" path="res://scenes/game/systems/powers/Splash.tscn" id="6_xsior"]
 [ext_resource type="PackedScene" uid="uid://dmrvkw0mxcjbl" path="res://scenes/game/systems/powers/power_generator.tscn" id="7_265or"]
@@ -57,6 +58,49 @@ size = Vector2(1921, 165)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_37iuf"]
 size = Vector2(2182, 216)
 
+[sub_resource type="Gradient" id="Gradient_2h7rg"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_etg2x"]
+noise_type = 0
+frequency = 0.0012
+fractal_type = 2
+fractal_lacunarity = 3.0
+domain_warp_enabled = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_0tkdq"]
+color_ramp = SubResource("Gradient_2h7rg")
+noise = SubResource("FastNoiseLite_etg2x")
+
+[sub_resource type="Environment" id="Environment_4qdsl"]
+background_mode = 3
+ambient_light_source = 1
+ambient_light_color = Color(0.796078, 0.505882, 0.160784, 1)
+ambient_light_energy = 0.0
+tonemap_mode = 3
+glow_enabled = true
+glow_levels/1 = 1.5
+glow_levels/2 = 1.5
+glow_levels/3 = 1.5
+glow_levels/5 = 1.5
+glow_intensity = 2.31
+glow_strength = 0.39
+glow_bloom = 1.0
+glow_blend_mode = 1
+glow_hdr_luminance_cap = 81.49
+glow_map_strength = 0.81
+glow_map = SubResource("NoiseTexture2D_0tkdq")
+
+[sub_resource type="Gradient" id="Gradient_rt86p"]
+offsets = PackedFloat32Array(0, 0.197279, 0.367347, 0.632653, 0.751701, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.696889, 0.696889, 0.696889, 1, 0.486395, 0.486395, 0.486395, 1, 0.164353, 0.164353, 0.164353, 1, 0.0121743, 0.0121743, 0.0121743, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_22xls"]
+gradient = SubResource("Gradient_rt86p")
+width = 500
+height = 500
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
 [node name="World" type="Node2D"]
 script = ExtResource("1_o0s6y")
 powers = Array[ExtResource("2_apbvs")]([SubResource("Resource_knw3i"), SubResource("Resource_wfbyp"), SubResource("Resource_jgq7r")])
@@ -69,10 +113,24 @@ sampling_distance = 25.0
 limit_max_lenght = true
 active = false
 
+[node name="columns" type="Node2D" parent="NavRegMouseShape" groups=["power"]]
+
+[node name="column" parent="NavRegMouseShape/columns" instance=ExtResource("4_137yi")]
+position = Vector2(606.651, 350.847)
+
+[node name="column2" parent="NavRegMouseShape/columns" instance=ExtResource("4_137yi")]
+position = Vector2(611.178, 953.522)
+
+[node name="column3" parent="NavRegMouseShape/columns" instance=ExtResource("4_137yi")]
+position = Vector2(1410.24, 975.526)
+
+[node name="column4" parent="NavRegMouseShape/columns" instance=ExtResource("4_137yi")]
+position = Vector2(1388.73, 348.402)
+
 [node name="background" type="Sprite2D" parent="."]
-z_index = -1
-position = Vector2(966, 534)
-scale = Vector2(2.004, 1.156)
+z_index = -2
+position = Vector2(963, 513.5)
+scale = Vector2(2.58, 1.667)
 texture = SubResource("GradientTexture2D_kgm7r")
 
 [node name="Enemy" parent="." node_paths=PackedStringArray("target") instance=ExtResource("3_lv77j")]
@@ -136,7 +194,38 @@ one_shot = true
 [node name="TimerRay" type="Timer" parent="PowerHandler"]
 one_shot = true
 
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_4qdsl")
+
 [node name="GameUi" parent="." instance=ExtResource("10_bi1d7")]
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(-67, -69)
+scale = Vector2(3.5975, 3.38385)
+energy = 2.15
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_22xls")
+
+[node name="PointLight2D2" type="PointLight2D" parent="."]
+position = Vector2(-57, 1120)
+scale = Vector2(3.6435, 3.21349)
+energy = 4.21
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_22xls")
+
+[node name="PointLight2D3" type="PointLight2D" parent="."]
+position = Vector2(1968, 1135)
+scale = Vector2(4.27725, 3.85517)
+energy = 1.53
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_22xls")
+
+[node name="PointLight2D4" type="PointLight2D" parent="."]
+position = Vector2(1982, -60)
+scale = Vector2(3.7435, 3.4222)
+energy = 3.21
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_22xls")
 
 [connection signal="max_len" from="NavRegMouseShape" to="PowerHandler" method="_on_nav_reg_mouse_shape_max_len"]
 [connection signal="max_len_rised" from="NavRegMouseShape/PolygonByMouse" to="NavRegMouseShape" method="_on_polygon_by_mouse_max_len_rised"]
