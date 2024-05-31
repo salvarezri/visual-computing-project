@@ -12,6 +12,7 @@ signal selected(power_name)
 @export var energy_cost: int = 4
 @export var dmg_power: int = 4
 @export var waiting_time: int = 4
+var on_panel = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -32,3 +33,5 @@ func _on_button_img_pressed():
 	activate
 	print("pressed")
 	pass # Replace with function body.
+func set_time(value):
+	$V/Progress.value = value

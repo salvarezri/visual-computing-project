@@ -33,6 +33,7 @@ fill_from = Vector2(0.5, 0.5)
 
 [node name="PowerCard" type="PanelContainer"]
 size_flags_horizontal = 3
+mouse_filter = 1
 script = ExtResource("1_s6wrc")
 
 [node name="V" type="VBoxContainer" parent="."]
@@ -50,7 +51,9 @@ custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
+mouse_default_cursor_shape = 2
 action_mode = 0
+button_mask = 2
 texture_normal = SubResource("GradientTexture2D_xlrkt")
 texture_pressed = SubResource("GradientTexture2D_a02dk")
 texture_hover = SubResource("GradientTexture2D_rsoec")

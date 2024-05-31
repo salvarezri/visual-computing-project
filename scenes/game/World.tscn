@@ -1,14 +1,40 @@
-[gd_scene load_steps=16 format=3 uid="uid://ca3ocit68ttdq"]
+[gd_scene load_steps=21 format=3 uid="uid://ca3ocit68ttdq"]
 
 [ext_resource type="PackedScene" uid="uid://7ymqp7ye0ffg" path="res://scenes/game/elements/NavRegMouseShape.tscn" id="1_adsd3"]
 [ext_resource type="Script" path="res://scenes/game/World.gd" id="1_o0s6y"]
+[ext_resource type="Script" path="res://global/power.gd" id="2_apbvs"]
 [ext_resource type="PackedScene" uid="uid://prpawadsl6pg" path="res://scenes/game/characters/enemies/Enemy.tscn" id="3_lv77j"]
 [ext_resource type="PackedScene" uid="uid://bwasko7uhi3sk" path="res://scenes/game/characters/Player.tscn" id="3_rh8y1"]
 [ext_resource type="PackedScene" uid="uid://b8q6wmeg5icr8" path="res://scenes/game/systems/stages/spawn_handler.tscn" id="5_8joer"]
 [ext_resource type="PackedScene" uid="uid://cadl0mvdnces8" path="res://scenes/game/systems/powers/Splash.tscn" id="6_xsior"]
-[ext_resource type="PackedScene" uid="uid://dmrvkw0mxcjbl" path="res://scenes/game/systems/powers/splash_generator.tscn" id="7_265or"]
-[ext_resource type="Script" path="res://scenes/game/systems/powers/RayGenerator.gd" id="8_eouj1"]
+[ext_resource type="PackedScene" uid="uid://dmrvkw0mxcjbl" path="res://scenes/game/systems/powers/power_generator.tscn" id="7_265or"]
+[ext_resource type="Script" path="res://scenes/game/PowerHandler.gd" id="9_1rqbc"]
 [ext_resource type="PackedScene" uid="uid://rjc7c85gqoyn" path="res://scenes/game/systems/powers/ray.tscn" id="9_wukmr"]
+[ext_resource type="PackedScene" uid="uid://ce8uwfb26p8ma" path="res://scenes/ui/GameUi.tscn" id="10_bi1d7"]
+
+[sub_resource type="Resource" id="Resource_knw3i"]
+script = ExtResource("2_apbvs")
+power = 0
+powername = "Ray"
+cool_down = 3
+dmg_per_hit = 10
+icons = Array[Texture2D]([])
+
+[sub_resource type="Resource" id="Resource_wfbyp"]
+script = ExtResource("2_apbvs")
+power = 0
+powername = "SPLASH"
+cool_down = 5
+dmg_per_hit = 2
+icons = Array[Texture2D]([])
+
+[sub_resource type="Resource" id="Resource_jgq7r"]
+script = ExtResource("2_apbvs")
+power = 0
+powername = "WALL"
+cool_down = 3
+dmg_per_hit = 0
+icons = Array[Texture2D]([])
 
 [sub_resource type="Gradient" id="Gradient_yrt06"]
 colors = PackedColorArray(0.0352941, 0.00392157, 0.0509804, 1, 0.0352941, 0.00392157, 0.0509804, 1)
@@ -33,12 +59,14 @@ size = Vector2(2182, 216)
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_o0s6y")
+powers = Array[ExtResource("2_apbvs")]([SubResource("Resource_knw3i"), SubResource("Resource_wfbyp"), SubResource("Resource_jgq7r")])
 
 [node name="NavRegMouseShape" parent="." instance=ExtResource("1_adsd3")]
 
 [node name="PolygonByMouse" parent="NavRegMouseShape" index="0"]
 polygon_width = 20.0
 sampling_distance = 25.0
+limit_max_lenght = true
 active = false
 
 [node name="background" type="Sprite2D" parent="."]
@@ -62,10 +90,8 @@ FRICTION = 582
 
 [node name="PowerGenerator" parent="." instance=ExtResource("7_265or")]
 power_scenes = Array[PackedScene]([ExtResource("6_xsior"), ExtResource("9_wukmr")])
+power_selector = 1
 active = true
-
-[node name="RayGenerator" type="Node2D" parent="."]
-script = ExtResource("8_eouj1")
 
 [node name="Walls" type="Node2D" parent="."]
 visible = false
@@ -94,5 +120,32 @@ shape = SubResource("RectangleShape2D_bagw2")
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Walls/UpperWall"]
 position = Vector2(1081, -108)
 shape = SubResource("RectangleShape2D_37iuf")
+
+[node name="PowerHandler" type="Node" parent="."]
+script = ExtResource("9_1rqbc")
+user_interface = NodePath("../GameUi")
+polygon_by_mouse = NodePath("../NavRegMouseShape/PolygonByMouse")
+power_generator = NodePath("../PowerGenerator")
+
+[node name="TimerWall" type="Timer" parent="PowerHandler"]
+one_shot = true
+
+[node name="TimerSplash" type="Timer" parent="PowerHandler"]
+one_shot = true
+
+[node name="TimerRay" type="Timer" parent="PowerHandler"]
+one_shot = true
+
+[node name="GameUi" parent="." instance=ExtResource("10_bi1d7")]
+
+[connection signal="max_len" from="NavRegMouseShape" to="PowerHandler" method="_on_nav_reg_mouse_shape_max_len"]
+[connection signal="max_len_rised" from="NavRegMouseShape/PolygonByMouse" to="NavRegMouseShape" method="_on_polygon_by_mouse_max_len_rised"]
+[connection signal="generated" from="PowerGenerator" to="PowerHandler" method="_on_power_generator_generated"]
+[connection signal="timeout" from="PowerHandler/TimerWall" to="PowerHandler" method="_on_timer_wall_timeout"]
+[connection signal="timeout" from="PowerHandler/TimerSplash" to="PowerHandler" method="_on_timer_splash_timeout"]
+[connection signal="timeout" from="PowerHandler/TimerRay" to="PowerHandler" method="_on_timer_ray_timeout"]
+[connection signal="mouse_entered" from="GameUi" to="PowerHandler" method="_on_game_ui_mouse_entered"]
+[connection signal="mouse_exited" from="GameUi" to="PowerHandler" method="_on_game_ui_mouse_exited"]
+[connection signal="power_selected" from="GameUi" to="PowerHandler" method="_on_game_ui_power_selected"]
 
 [editable path="NavRegMouseShape"]

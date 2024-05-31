@@ -1,3 +1,4 @@
+class_name PolygonByMouse
 extends Node2D
 
 signal max_len_rised(polygons: Array[PackedVector2Array])
@@ -27,6 +28,17 @@ var last_line : int = -1
 var curr_len: float = 0
 var group_gen: String
 
+
+func reset():
+	group_gen = gen_unique_string(25)
+	prev_pos  = Vector2.ZERO
+	prev_prev_pos= Vector2.ZERO
+	state = false
+	lines_points = []
+	carry_angle = -20
+	last_line = -1
+	curr_len = 0
+	
 func set_access_group(new_group:String, set_before: bool = false):
 	if  set_before:
 		for child in get_parent().get_children():
@@ -36,6 +48,7 @@ func set_access_group(new_group:String, set_before: bool = false):
 	access_group = new_group
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	add_to_group("Power")
 	group_gen = gen_unique_string(25)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

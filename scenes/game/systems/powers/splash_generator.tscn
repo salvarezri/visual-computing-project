@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://dmrvkw0mxcjbl"]
-
-[ext_resource type="Script" path="res://scenes/game/systems/powers/splash_generator.gd" id="1_l4d3o"]
-
-[node name="SplashGenerator" type="Node2D"]
-script = ExtResource("1_l4d3o")

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dmrvkw0mxcjbl"]
+
+[ext_resource type="Script" path="res://scenes/game/systems/powers/splash_generator.gd" id="1_tvovm"]
+
+[node name="PowerGenerator" type="Node2D"]
+script = ExtResource("1_tvovm")

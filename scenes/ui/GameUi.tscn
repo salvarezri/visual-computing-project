@@ -81,15 +81,12 @@ texture_progress = ExtResource("9_olrm0")
 tint_under = Color(0, 0.596078, 0.858824, 1)
 tint_progress = Color(0, 0.596078, 0.858824, 1)
 
-[node name="SubViewport" type="SubViewport" parent="."]
-disable_3d = true
-
 [node name="Powers" type="PanelContainer" parent="."]
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 8.0
-offset_top = -256.0
+offset_top = -216.0
 offset_right = 187.0
 offset_bottom = -13.0
 grow_vertical = 0
@@ -98,15 +95,30 @@ size_flags_vertical = 4
 theme = ExtResource("1_uidgp")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_wbllu")
 
-[node name="MarginContainer" type="MarginContainer" parent="Powers"]
+[node name="M" type="MarginContainer" parent="Powers"]
 layout_mode = 2
 theme_override_constants/margin_left = 32
 theme_override_constants/margin_top = 32
 theme_override_constants/margin_right = 32
 theme_override_constants/margin_bottom = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Powers/MarginContainer"]
+[node name="H" type="HBoxContainer" parent="Powers/M"]
 layout_mode = 2
 
-[node name="PowerCard" parent="Powers/MarginContainer/HBoxContainer" instance=ExtResource("7_hwwmg")]
+[node name="RayPowerCard" parent="Powers/M/H" instance=ExtResource("7_hwwmg")]
 layout_mode = 2
+power_name = "RAY"
+
+[node name="SplashPowerCard2" parent="Powers/M/H" instance=ExtResource("7_hwwmg")]
+layout_mode = 2
+power_name = "SPLASH"
+
+[node name="WallPowerCard3" parent="Powers/M/H" instance=ExtResource("7_hwwmg")]
+layout_mode = 2
+power_name = "WALL"
+
+[connection signal="mouse_entered" from="Powers" to="." method="_on_powers_mouse_entered"]
+[connection signal="mouse_exited" from="Powers" to="." method="_on_powers_mouse_exited"]
+[connection signal="selected" from="Powers/M/H/RayPowerCard" to="." method="_on_ray_power_card_selected"]
+[connection signal="selected" from="Powers/M/H/SplashPowerCard2" to="." method="_on_splash_power_card_2_selected"]
+[connection signal="selected" from="Powers/M/H/WallPowerCard3" to="." method="_on_wall_power_card_3_selected"]

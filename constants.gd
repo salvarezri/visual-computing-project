@@ -1,0 +1,1 @@
+enum PowerTypes {RAY_POWER, SPLASH_POWER, WALL_POWER}
