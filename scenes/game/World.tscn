@@ -81,7 +81,7 @@ target = NodePath("../Player")
 
 [node name="Player" parent="." instance=ExtResource("3_rh8y1")]
 position = Vector2(960, 540)
-collision_layer = 9
+collision_layer = 11
 ACCELERATION = 494
 MAX_SPEED = 542
 FRICTION = 582
@@ -140,6 +140,7 @@ one_shot = true
 
 [connection signal="max_len" from="NavRegMouseShape" to="PowerHandler" method="_on_nav_reg_mouse_shape_max_len"]
 [connection signal="max_len_rised" from="NavRegMouseShape/PolygonByMouse" to="NavRegMouseShape" method="_on_polygon_by_mouse_max_len_rised"]
+[connection signal="hited" from="Player" to="." method="_on_player_hited"]
 [connection signal="generated" from="PowerGenerator" to="PowerHandler" method="_on_power_generator_generated"]
 [connection signal="timeout" from="PowerHandler/TimerWall" to="PowerHandler" method="_on_timer_wall_timeout"]
 [connection signal="timeout" from="PowerHandler/TimerSplash" to="PowerHandler" method="_on_timer_splash_timeout"]

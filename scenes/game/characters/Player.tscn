@@ -1,17 +1,20 @@
-[gd_scene load_steps=2 format=3 uid="uid://bwasko7uhi3sk"]
+[gd_scene load_steps=3 format=3 uid="uid://bwasko7uhi3sk"]
 
 [ext_resource type="Script" path="res://scenes/game/characters/Player.gd" id="1_prgxf"]
+[ext_resource type="PackedScene" uid="uid://b6mrv2wk6g7xl" path="res://scenes/game/systems/characters systems/healt_component.tscn" id="2_08huw"]
 
 [node name="Player" type="CharacterBody2D"]
 z_index = 2
 position = Vector2(889, 436)
 rotation = -0.00281223
 scale = Vector2(0.206761, 0.206761)
+collision_layer = 3
 motion_mode = 1
 script = ExtResource("1_prgxf")
 ACCELERATION = 19
 MAX_SPEED = 27
 FRICTION = 7
+healt_comp_path = NodePath("HealtComponent")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(0, -50, -110, -0.309344, -50, 40, 0, 200, 50, 40, 110, 0.309344)
@@ -23,3 +26,9 @@ polygon = PackedVector2Array(0, -50, -110, 0, -50, 40, 0, 200, 50, 40, 110, 0)
 [node name="Polygon2D2" type="Polygon2D" parent="."]
 color = Color(0.152941, 0, 0.133333, 1)
 polygon = PackedVector2Array(-85, 0, 0, -36, 85, 0, 0, 53)
+
+[node name="HealtComponent" parent="." instance=ExtResource("2_08huw")]
+init_max_healt = 3.0
+
+[connection signal="sg_death" from="HealtComponent" to="." method="_on_healt_component_sg_death"]
+[connection signal="sg_hit" from="HealtComponent" to="." method="_on_healt_component_sg_hit"]

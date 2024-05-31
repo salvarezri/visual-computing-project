@@ -14,8 +14,13 @@ func reset():
 		if !child.is_in_group("Power"):
 			child.queue_free()
 	$PolygonByMouse.reset()
-
+	await get_tree().create_timer(0.1).timeout
+	bake_navigation_polygon()
+	
+func finish_reset():
+	await reset()
 func _on_polygon_by_mouse_new_step(_step):
+	await get_tree().create_timer(0.01).timeout
 	bake_navigation_polygon()
 
 

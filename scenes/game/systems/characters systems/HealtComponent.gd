@@ -76,7 +76,10 @@ func heal(amount:float) -> bool:
 	sg_heal.emit(curr_healt, amount)
 	return true
 	
-
+func die():
+	sg_death.emit(0)
+	curr_healt = 0
+	
 # get properties
 func get_max_healt() -> float:
 	return max_healt
