@@ -133,6 +133,7 @@ layout_mode = 2
 power_name = "RAY"
 button_imgs = Array[Texture2D]([ExtResource("8_p5ax6"), ExtResource("9_4n8wu"), ExtResource("10_k2eg8"), ExtResource("11_ompjw")])
 energy_cost = 2
+dmg_power = 5
 waiting_time = 1
 
 [node name="SplashPowerCard2" parent="Powers/M/H" instance=ExtResource("7_hwwmg")]
@@ -147,6 +148,7 @@ layout_mode = 2
 power_name = "WALL"
 button_imgs = Array[Texture2D]([ExtResource("16_ij2ak"), ExtResource("17_a3fmg"), ExtResource("18_25rim"), ExtResource("19_1rt5f")])
 energy_cost = 0
+waiting_time = 7
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 visible = false
