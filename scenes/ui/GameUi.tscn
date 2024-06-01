@@ -149,6 +149,7 @@ button_imgs = Array[Texture2D]([ExtResource("16_ij2ak"), ExtResource("17_a3fmg")
 energy_cost = 0
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
+visible = false
 offset_left = 704.0
 offset_top = 72.0
 offset_right = 1144.0
