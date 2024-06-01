@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://ce8uwfb26p8ma"]
+[gd_scene load_steps=27 format=3 uid="uid://ce8uwfb26p8ma"]
 
 [ext_resource type="Script" path="res://scenes/ui/GameUi.gd" id="1_5416x"]
 [ext_resource type="Theme" uid="uid://b2d7112yucgp8" path="res://scenes/ui/main theme.tres" id="1_uidgp"]
@@ -19,10 +19,21 @@
 [ext_resource type="Texture2D" uid="uid://djc7y7lq6f72m" path="res://assets/UI/asset/png@3x/Icon/Wall_hover.png" id="17_a3fmg"]
 [ext_resource type="Texture2D" uid="uid://dal8egmebtw8j" path="res://assets/UI/asset/png@3x/Icon/Wall_clicked.png" id="18_25rim"]
 [ext_resource type="Texture2D" uid="uid://bt62yqoulr32s" path="res://assets/UI/asset/png@3x/Icon/Wall_disabled.png" id="19_1rt5f"]
+[ext_resource type="Texture2D" uid="uid://ygui2g1jl7j5" path="res://assets/UI/asset/png@3x/Buttons/Rect-Medium/PlayText/Default@3x.png" id="20_0wws8"]
+[ext_resource type="Texture2D" uid="uid://bxqbvv1gswb4m" path="res://assets/UI/asset/png@3x/Buttons/Rect-Medium/PlayText/Hover@3x.png" id="21_47ewy"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u4to4"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wbllu"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_uvwpk"]
+font_size = 47
+
+[sub_resource type="LabelSettings" id="LabelSettings_f1s60"]
+font_size = 35
+
+[sub_resource type="LabelSettings" id="LabelSettings_p5vqa"]
+font_size = 70
 
 [node name="GameUi" type="CanvasLayer"]
 script = ExtResource("1_5416x")
@@ -121,11 +132,15 @@ layout_mode = 2
 layout_mode = 2
 power_name = "RAY"
 button_imgs = Array[Texture2D]([ExtResource("8_p5ax6"), ExtResource("9_4n8wu"), ExtResource("10_k2eg8"), ExtResource("11_ompjw")])
+energy_cost = 2
+waiting_time = 1
 
 [node name="SplashPowerCard2" parent="Powers/M/H" instance=ExtResource("7_hwwmg")]
 layout_mode = 2
 power_name = "SPLASH"
 button_imgs = Array[Texture2D]([ExtResource("12_5xssg"), ExtResource("13_g6nkh"), ExtResource("14_381vt"), ExtResource("15_xe4dh")])
+dmg_power = 1
+waiting_time = 3
 
 [node name="WallPowerCard3" parent="Powers/M/H" instance=ExtResource("7_hwwmg")]
 layout_mode = 2
@@ -133,8 +148,67 @@ power_name = "WALL"
 button_imgs = Array[Texture2D]([ExtResource("16_ij2ak"), ExtResource("17_a3fmg"), ExtResource("18_25rim"), ExtResource("19_1rt5f")])
 energy_cost = 0
 
+[node name="PanelContainer" type="PanelContainer" parent="."]
+visible = false
+offset_left = 704.0
+offset_top = 72.0
+offset_right = 1144.0
+offset_bottom = 264.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "GAME OVER"
+label_settings = SubResource("LabelSettings_uvwpk")
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 11
+alignment = 1
+
+[node name="Label2" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Your score:"
+label_settings = SubResource("LabelSettings_f1s60")
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "56"
+label_settings = SubResource("LabelSettings_f1s60")
+
+[node name="TextureButton" type="TextureButton" parent="PanelContainer/MarginContainer/VBoxContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(300, 175.905)
+layout_mode = 2
+texture_normal = ExtResource("20_0wws8")
+texture_hover = ExtResource("21_47ewy")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Score" type="Label" parent="."]
+offset_left = 72.0
+offset_top = 32.0
+offset_right = 152.0
+offset_bottom = 128.0
+text = "45"
+label_settings = SubResource("LabelSettings_p5vqa")
+horizontal_alignment = 1
+
 [connection signal="mouse_entered" from="Powers" to="." method="_on_powers_mouse_entered"]
 [connection signal="mouse_exited" from="Powers" to="." method="_on_powers_mouse_exited"]
 [connection signal="selected" from="Powers/M/H/RayPowerCard" to="." method="_on_ray_power_card_selected"]
 [connection signal="selected" from="Powers/M/H/SplashPowerCard2" to="." method="_on_splash_power_card_2_selected"]
 [connection signal="selected" from="Powers/M/H/WallPowerCard3" to="." method="_on_wall_power_card_3_selected"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/TextureButton" to="." method="_on_texture_button_pressed"]

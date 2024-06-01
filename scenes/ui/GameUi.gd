@@ -3,19 +3,29 @@ extends CanvasLayer
 signal mouse_entered
 signal mouse_exited
 signal power_selected(power_name:String)
+signal restarted()
 var on_mouse= false
+@export_node_path("PowerHandler") var power_handler_path
+
+var power_handler_node: PowerHandler
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	if power_handler_path:
+		power_handler_node = get_node(power_handler_path)
 	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	
-	#print(on_panels_mouse, on_mouse)
+	if power_handler_node:
+		set_power_states(power_handler_node.get_state_powers())
 	pass
 
-	
+func set_power_states(states: Array[bool]):
+	$Powers/M/H/WallPowerCard3.set_power_state(states[0])
+	$Powers/M/H/SplashPowerCard2.set_power_state(states[1])
+	$Powers/M/H/RayPowerCard.set_power_state(states[2])
+	pass
 
 func _on_ray_power_card_selected(power_name):
 	power_selected.emit(power_name)
@@ -28,7 +38,6 @@ func _on_wall_power_card_3_selected(power_name):
 
 
 func _on_powers_mouse_entered():
-	print("entered")
 	mouse_entered.emit()
 	pass # Replace with function body.
 
@@ -54,6 +63,15 @@ func setup_energy(min,max):
 	$Stats/MarginContainer/GridContainer/ProgressBarMana.value = max
 	
 func _on_powers_mouse_exited():
-	print("exited")
 	mouse_exited.emit()
 	pass # Replace with function body.
+func update_score(score):
+	$Score.text = String.num_int64(score)
+	
+func game_over(score:int):
+	$PanelContainer.visible = true
+	$PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Label.text = String.num_int64(score)
+func _on_texture_button_pressed():
+	restarted.emit()
+	$PanelContainer.visible = false
+	

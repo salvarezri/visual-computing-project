@@ -8,9 +8,11 @@ extends CharacterBody2D
 @export var target: Player
 @onready var nav: NavigationAgent2D = $NavigationAgent2D
 @onready var healtComponent: HealtComponent = $HealtComponent
-@export var dmg_per_hit:int = 2
-
+@export var dmg_per_hit:int = 1
+@onready var animation_player : AnimationPlayer = $AnimationPlayer
 var direction: Vector2 = Vector2.ZERO
+var died = false
+var crash = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if target:
@@ -20,6 +22,7 @@ func _ready():
 	pass # Replace with function body.
 
 func _process(delta):
+		
 	#rotation
 	look_at(nav.get_next_path_position())
 	rotation = rotation-PI/2
@@ -41,23 +44,24 @@ func _physics_process(delta):
 		velocity = velocity.move_toward(Vector2.ZERO, FRICTION * delta)
 	
 	# check collitions
-	for i in get_slide_collision_count():
-		var collision = get_slide_collision(i)
-		if collision.get_collider() == null:
-			continue
-		if collision.get_collider().is_in_group("player"):
-			collision.get_collider().hit(dmg_per_hit)
-			healtComponent.die()
+	if !crash:
+		for i in get_slide_collision_count():
+			var collision = get_slide_collision(i)
+			if collision.get_collider() == null:
+				continue
+			if collision.get_collider().is_in_group("player"):
+				collision.get_collider().hit(dmg_per_hit)
+				crash = true
+				animation_player.play("die")
 		
 	move_and_slide()
 	pass
 	
-
 func _on_healt_component_sg_death(_remaining_damage):
-	queue_free()
+	print("jejeje")
+	animation_player.play("die")
 
 func take_damage(ammount: float):
-	print("dammage")
 	if !healtComponent.is_death():
 		healtComponent.hit(ammount)
 	
@@ -66,4 +70,13 @@ func _on_mouse_entered():
 
 
 func _on_healt_component_sg_hit(_healt, _hit_taken):
-	print("hit")
+	animation_player.play("hit")
+
+
+func _on_animation_player_animation_finished(anim_name):
+	match anim_name:
+		"die":
+			queue_free()
+		_:
+			if died || crash:
+				animation_player.play("die")

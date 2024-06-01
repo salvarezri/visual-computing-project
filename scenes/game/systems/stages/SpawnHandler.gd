@@ -29,4 +29,5 @@ func _on_stages_timer_sub_stage_time(stage, last_sub_stage, boss_stage):
 		enemy.target = get_node(player)
 		get_parent().add_child(enemy)
 	if last_sub_stage:
+		print("end")
 		stage_timer.step()

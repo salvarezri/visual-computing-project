@@ -110,6 +110,7 @@ powers = Array[ExtResource("2_apbvs")]([SubResource("Resource_knw3i"), SubResour
 [node name="PolygonByMouse" parent="NavRegMouseShape" index="0"]
 polygon_width = 20.0
 sampling_distance = 25.0
+max_lenght = 1500.0
 limit_max_lenght = true
 active = false
 
@@ -145,6 +146,7 @@ MAX_SPEED = 542
 FRICTION = 582
 
 [node name="SpawnHandler" parent="." instance=ExtResource("5_8joer")]
+number = 5
 
 [node name="PowerGenerator" parent="." instance=ExtResource("7_265or")]
 power_scenes = Array[PackedScene]([ExtResource("6_xsior"), ExtResource("9_wukmr")])
@@ -186,6 +188,9 @@ user_interface = NodePath("../GameUi")
 polygon_by_mouse = NodePath("../NavRegMouseShape/PolygonByMouse")
 power_generator = NodePath("../PowerGenerator")
 player_node_path = NodePath("../Player")
+wall_cooldown = 6
+ray_cooldown = 1
+ray_cost = 2
 
 [node name="TimerWall" type="Timer" parent="PowerHandler"]
 one_shot = true
@@ -200,6 +205,7 @@ one_shot = true
 environment = SubResource("Environment_4qdsl")
 
 [node name="GameUi" parent="." instance=ExtResource("10_bi1d7")]
+power_handler_path = NodePath("../PowerHandler")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 position = Vector2(-67, -69)
@@ -229,16 +235,20 @@ energy = 3.21
 shadow_enabled = true
 texture = SubResource("GradientTexture2D_22xls")
 
+[node name="TimerScore" type="Timer" parent="."]
+autostart = true
+
 [connection signal="max_len" from="NavRegMouseShape" to="PowerHandler" method="_on_nav_reg_mouse_shape_max_len"]
 [connection signal="max_len_rised" from="NavRegMouseShape/PolygonByMouse" to="NavRegMouseShape" method="_on_polygon_by_mouse_max_len_rised"]
+[connection signal="die" from="Player" to="." method="_on_player_die"]
 [connection signal="energy_changed" from="Player" to="." method="_on_player_energy_changed"]
 [connection signal="hited" from="Player" to="." method="_on_player_hited"]
 [connection signal="generated" from="PowerGenerator" to="PowerHandler" method="_on_power_generator_generated"]
 [connection signal="timeout" from="PowerHandler/TimerWall" to="PowerHandler" method="_on_timer_wall_timeout"]
 [connection signal="timeout" from="PowerHandler/TimerSplash" to="PowerHandler" method="_on_timer_splash_timeout"]
 [connection signal="timeout" from="PowerHandler/TimerRay" to="PowerHandler" method="_on_timer_ray_timeout"]
-[connection signal="mouse_entered" from="GameUi" to="PowerHandler" method="_on_game_ui_mouse_entered"]
-[connection signal="mouse_exited" from="GameUi" to="PowerHandler" method="_on_game_ui_mouse_exited"]
 [connection signal="power_selected" from="GameUi" to="PowerHandler" method="_on_game_ui_power_selected"]
+[connection signal="restarted" from="GameUi" to="." method="_on_game_ui_restarted"]
+[connection signal="timeout" from="TimerScore" to="." method="_on_timer_score_timeout"]
 
 [editable path="NavRegMouseShape"]

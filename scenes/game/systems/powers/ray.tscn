@@ -29,6 +29,7 @@ fill_from = Vector2(0.5, 0.5)
 z_index = 1
 position = Vector2(896, 472)
 script = ExtResource("1_hnp3e")
+damage = 4.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_xln5y")

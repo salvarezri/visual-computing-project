@@ -63,6 +63,9 @@ func hit(amount: float) -> bool:
 	curr_healt -= amount
 	sg_hit.emit(curr_healt, amount)
 	return true
+func reload():
+	max_healt = init_max_healt
+	curr_healt = max_healt
 	
 func heal(amount:float) -> bool:
 	if amount < 0 : return false 

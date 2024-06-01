@@ -1,5 +1,5 @@
+class_name  PowerHandler
 extends Node
-
 
 @export_node_path("GraphicInterface") var user_interface
 @export_node_path("PolygonByMouse") var polygon_by_mouse
@@ -17,13 +17,13 @@ var pow_gen_node: PowerGenerator
 var player_node: Player
 var mouse_active = true
 
-var wall_cooldown = 3
-var splash_cooldown = 3
-var ray_cooldown = 3
+@export var wall_cooldown = 3
+@export var splash_cooldown = 3
+@export var ray_cooldown = 3
 
-var wall_cost = 4
-var splash_cost = 4
-var ray_cost = 4 
+@export var wall_cost = 0
+@export var splash_cost = 4
+@export var ray_cost = 4 
 
 
 # Called when the node enters the scene tree for the first time.
@@ -87,7 +87,6 @@ func desactivate(power_name:String):
 		desactivate_splash()
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	#print(wall_timer.time_left)
 	ui_node.set_times(
 		get_percentage(wall_cooldown,wall_timer.time_left),
 		get_percentage(splash_cooldown,splash_timer.time_left),
@@ -131,5 +130,13 @@ func _on_timer_splash_timeout():
 func _on_timer_ray_timeout():
 	if active == "RAY":
 		activate_ray()
-
+func get_state_powers()-> Array[bool]:
+	var states: Array[bool] = [true, true, true]
+	if wall_timer.time_left != 0 || !player_node.can_consume(wall_cost):
+		states[0] = false
+	if splash_timer.time_left != 0 || !player_node.can_consume(splash_cost):
+		states[1] = false
+	if ray_timer.time_left != 0 || !player_node.can_consume(ray_cost):
+		states[2] = false
+	return states
 

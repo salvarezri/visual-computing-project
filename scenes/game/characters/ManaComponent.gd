@@ -18,6 +18,10 @@ signal sg_close_to_no_energy(energy: float, percentage: float)
 var max_energy: float
 var curr_energy: float
 
+func reload():
+	max_energy = init_max_energy
+	curr_energy = max_energy
+
 func _ready():
 	max_energy = init_max_energy
 	curr_energy = max_energy

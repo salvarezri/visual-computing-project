@@ -36,11 +36,14 @@ func activate():
 	pass
 func desactivate():
 	pass
+
+func set_power_state(state:bool):
+	if button_img_node.disabled != !state:
+		button_img_node.disabled = !state
 	
 func _on_button_img_pressed():
 	selected.emit(power_name)
 	activate
-	print("pressed")
 	pass # Replace with function body.
 func set_time(value):
 	$V/Progress.value = value
