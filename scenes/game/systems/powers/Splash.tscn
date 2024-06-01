@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cadl0mvdnces8"]
+[gd_scene load_steps=8 format=3 uid="uid://cadl0mvdnces8"]
 
 [ext_resource type="Script" path="res://scenes/game/systems/powers/splash.gd" id="1_0yqiu"]
 
@@ -16,6 +16,43 @@ width = 300
 height = 300
 fill = 1
 fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Animation" id="Animation_8xuyh"]
+resource_name = "beggin"
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0001, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.405, 0.405), Vector2(1, 1), Vector2(0.785, 0.785), Vector2(1, 1), Vector2(0.895, 0.895), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_vvn1t"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gjtqn"]
+_data = {
+"RESET": SubResource("Animation_vvn1t"),
+"beggin": SubResource("Animation_8xuyh")
+}
 
 [node name="Splash" type="Area2D"]
 modulate = Color(0.67451, 0.87451, 0.0705882, 1)
@@ -41,6 +78,11 @@ autostart = true
 wait_time = 5.0
 one_shot = true
 autostart = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_gjtqn")
+}
 
 [connection signal="timeout" from="TimerToHit" to="." method="_on_timer_to_hit_timeout"]
 [connection signal="timeout" from="TimerToDie" to="." method="_on_timer_to_die_timeout"]

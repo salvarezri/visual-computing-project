@@ -12,7 +12,7 @@ extends Area2D
 func _ready():
 	timer_to_die.wait_time = time_to_die
 	timer_to_hit.wait_time = time_to_damage
-	
+	$AnimationPlayer.play("beggin")
 	
 
 
