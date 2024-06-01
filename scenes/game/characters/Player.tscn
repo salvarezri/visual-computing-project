@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://bwasko7uhi3sk"]
+[gd_scene load_steps=6 format=3 uid="uid://bwasko7uhi3sk"]
 
 [ext_resource type="Script" path="res://scenes/game/characters/Player.gd" id="1_prgxf"]
 [ext_resource type="PackedScene" uid="uid://b6mrv2wk6g7xl" path="res://scenes/game/systems/characters systems/healt_component.tscn" id="2_08huw"]
+[ext_resource type="Script" path="res://scenes/game/characters/ManaComponent.gd" id="3_oj5uo"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3wyol"]
 radius = 91.8931
@@ -25,7 +26,6 @@ healt_comp_path = NodePath("HealtComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-4.9725, 48.3512)
-scale = Vector2(1, 1)
 shape = SubResource("CapsuleShape2D_3wyol")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
@@ -47,5 +47,12 @@ init_max_healt = 3.0
 occluder = SubResource("OccluderPolygon2D_twgpu")
 occluder_light_mask = 3
 
+[node name="EnergyComponent" type="Node" parent="."]
+script = ExtResource("3_oj5uo")
+
+[node name="Timer" type="Timer" parent="EnergyComponent"]
+autostart = true
+
 [connection signal="sg_death" from="HealtComponent" to="." method="_on_healt_component_sg_death"]
 [connection signal="sg_hit" from="HealtComponent" to="." method="_on_healt_component_sg_hit"]
+[connection signal="timeout" from="EnergyComponent/Timer" to="EnergyComponent" method="_on_timer_timeout"]

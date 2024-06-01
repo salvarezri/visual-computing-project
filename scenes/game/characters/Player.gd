@@ -5,7 +5,9 @@ signal hited()
 @export var MAX_SPEED = 0
 @export var FRICTION = 0
 @export_node_path("HealtComponent") var healt_comp_path
+@export_node_path("EnergyComponent") var energy_comp_path
 var healt_component : HealtComponent
+var energy_component : EnergyComponent
 var waiting_to_shot: bool = false
 
 # Called when the node enters the scene tree for the first time.
@@ -46,12 +48,21 @@ func motion_ctrl(delta):
 func hit(ammount):
 	healt_component.hit(ammount)
 
+func consume(ammount):
+	energy_component.consume(ammount)
+
 func _on_healt_component_sg_death(_remaining_damage):
 	pass # Replace with function body.
 
 func get_cur_healt():
 	return healt_component.get_curr_healt()
 
+func get_cur_energy():
+	return energy_component.get_curr_energy()
+	
+func get_max_energy():
+	return energy_component.get_max_energy()
+	
 func get_max_healt():
 	return healt_component.get_max_healt()
 	
