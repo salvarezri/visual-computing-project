@@ -1,6 +1,7 @@
 class_name Player
 extends CharacterBody2D
 signal hited()
+signal energy_changed()
 @export var ACCELERATION = 0
 @export var MAX_SPEED = 0
 @export var FRICTION = 0
@@ -14,6 +15,7 @@ var waiting_to_shot: bool = false
 func _ready():
 	add_to_group("player")
 	healt_component = get_node(healt_comp_path)
+	energy_component = get_node(energy_comp_path)
 	pass # Replace with function body.  
 
 func _input(_event):
@@ -68,4 +70,11 @@ func get_max_healt():
 	
 func _on_healt_component_sg_hit(healt, _hit_taken):
 	hited.emit()
-	pass # Replace with function body.
+
+
+func _on_energy_component_sg_consumed_energy():
+	energy_changed.emit()
+
+
+func _on_energy_component_sg_restored_energy():
+	energy_changed.emit()

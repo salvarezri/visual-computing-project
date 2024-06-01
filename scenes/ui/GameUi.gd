@@ -44,6 +44,14 @@ func setup_life(min,max):
 	$Stats/MarginContainer/GridContainer/ProgressBarLife.min_value = min
 	$Stats/MarginContainer/GridContainer/ProgressBarLife.max_value = max
 	$Stats/MarginContainer/GridContainer/ProgressBarLife.value = max
+
+func set_energy(energy):
+	$Stats/MarginContainer/GridContainer/ProgressBarMana.value = energy
+	
+func setup_energy(min,max):
+	$Stats/MarginContainer/GridContainer/ProgressBarMana.min_value = min
+	$Stats/MarginContainer/GridContainer/ProgressBarMana.max_value = max
+	$Stats/MarginContainer/GridContainer/ProgressBarMana.value = max
 	
 func _on_powers_mouse_exited():
 	print("exited")

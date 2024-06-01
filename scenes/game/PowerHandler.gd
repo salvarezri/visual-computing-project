@@ -4,6 +4,7 @@ extends Node
 @export_node_path("GraphicInterface") var user_interface
 @export_node_path("PolygonByMouse") var polygon_by_mouse
 @export_node_path("PowerGenerator") var power_generator
+@export_node_path("Player") var player_node_path
 
 @onready var wall_timer: Timer = $TimerWall
 @onready var ray_timer: Timer = $TimerRay
@@ -13,12 +14,16 @@ var active = "RAY"
 var ui_node:GraphicInterface
 var poly_mouse_node:PolygonByMouse
 var pow_gen_node: PowerGenerator
+var player_node: Player
 var mouse_active = true
 
 var wall_cooldown = 3
 var splash_cooldown = 3
 var ray_cooldown = 3
 
+var wall_cost = 4
+var splash_cost = 4
+var ray_cost = 4 
 
 
 # Called when the node enters the scene tree for the first time.
@@ -26,6 +31,7 @@ func _ready():
 	ui_node = get_node(user_interface)
 	poly_mouse_node = get_node(polygon_by_mouse)
 	pow_gen_node = get_node(power_generator)
+	player_node = get_node(player_node_path)
 	desactivate_splash()
 	desactivate_wall()
 	activate_ray()
@@ -96,14 +102,17 @@ func _on_game_ui_power_selected(power_name):
 
 
 func _on_nav_reg_mouse_shape_max_len():
+	player_node.consume(wall_cost)
 	wall_timer.start(wall_cooldown)
 	desactivate(active)
 	
 
 func _on_power_generator_generated():
 	if active == "SPLASH":
+		player_node.consume(splash_cost)
 		splash_timer.start(splash_cooldown)
 	elif active == "RAY":
+		player_node.consume(ray_cost)
 		ray_timer.start(ray_cooldown)
 	desactivate(active)
 

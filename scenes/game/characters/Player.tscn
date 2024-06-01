@@ -23,6 +23,7 @@ ACCELERATION = 19
 MAX_SPEED = 27
 FRICTION = 7
 healt_comp_path = NodePath("HealtComponent")
+energy_comp_path = NodePath("EnergyComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-4.9725, 48.3512)
@@ -49,10 +50,14 @@ occluder_light_mask = 3
 
 [node name="EnergyComponent" type="Node" parent="."]
 script = ExtResource("3_oj5uo")
+init_max_energy = 24.0
+restore_per_second = 1
 
 [node name="Timer" type="Timer" parent="EnergyComponent"]
 autostart = true
 
 [connection signal="sg_death" from="HealtComponent" to="." method="_on_healt_component_sg_death"]
 [connection signal="sg_hit" from="HealtComponent" to="." method="_on_healt_component_sg_hit"]
+[connection signal="sg_consumed_energy" from="EnergyComponent" to="." method="_on_energy_component_sg_consumed_energy"]
+[connection signal="sg_restored_energy" from="EnergyComponent" to="." method="_on_energy_component_sg_restored_energy"]
 [connection signal="timeout" from="EnergyComponent/Timer" to="EnergyComponent" method="_on_timer_timeout"]

@@ -113,7 +113,7 @@ sampling_distance = 25.0
 limit_max_lenght = true
 active = false
 
-[node name="columns" type="Node2D" parent="NavRegMouseShape" groups=["power"]]
+[node name="columns" type="Node2D" parent="NavRegMouseShape" groups=["Power"]]
 
 [node name="column" parent="NavRegMouseShape/columns" instance=ExtResource("4_137yi")]
 position = Vector2(606.651, 350.847)
@@ -184,6 +184,7 @@ script = ExtResource("9_1rqbc")
 user_interface = NodePath("../GameUi")
 polygon_by_mouse = NodePath("../NavRegMouseShape/PolygonByMouse")
 power_generator = NodePath("../PowerGenerator")
+player_node_path = NodePath("../Player")
 
 [node name="TimerWall" type="Timer" parent="PowerHandler"]
 one_shot = true
@@ -229,6 +230,7 @@ texture = SubResource("GradientTexture2D_22xls")
 
 [connection signal="max_len" from="NavRegMouseShape" to="PowerHandler" method="_on_nav_reg_mouse_shape_max_len"]
 [connection signal="max_len_rised" from="NavRegMouseShape/PolygonByMouse" to="NavRegMouseShape" method="_on_polygon_by_mouse_max_len_rised"]
+[connection signal="energy_changed" from="Player" to="." method="_on_player_energy_changed"]
 [connection signal="hited" from="Player" to="." method="_on_player_hited"]
 [connection signal="generated" from="PowerGenerator" to="PowerHandler" method="_on_power_generator_generated"]
 [connection signal="timeout" from="PowerHandler/TimerWall" to="PowerHandler" method="_on_timer_wall_timeout"]

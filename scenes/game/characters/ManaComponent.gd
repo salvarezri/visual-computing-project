@@ -98,5 +98,7 @@ func has_max_energy(presition:float = 0.001)-> bool:
 	return curr_energy >= max_energy-presition && curr_energy < max_energy+presition
 
 func _on_timer_timeout():
-	if !has_max_energy:
+	print("restore")
+	print(has_max_energy())
+	if !has_max_energy() && restore_per_second>0:
 		heal(restore_per_second)
