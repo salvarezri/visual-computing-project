@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://do05hkhb23yhs"
-path="res://.godot/imported/Wall.png-cb19e0766192fdaf0d86845cbe5e16a2.ctex"
+uid="uid://b4qnffdu6y61f"
+path="res://.godot/imported/toxic_DISABLED.png-35344d973fbe34556257f9c9230d5350.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/game/Wall.png"
-dest_files=["res://.godot/imported/Wall.png-cb19e0766192fdaf0d86845cbe5e16a2.ctex"]
+source_file="res://assets/UI/asset/png@3x/Icon/toxic_DISABLED.png"
+dest_files=["res://.godot/imported/toxic_DISABLED.png-35344d973fbe34556257f9c9230d5350.ctex"]
 
 [params]
 

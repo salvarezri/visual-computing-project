@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bk2sqsp1lnlan"
-path="res://.godot/imported/toxic.png-cd5c0db2e6a92a430f9b5a9eaf469c9d.ctex"
+uid="uid://rxthdu4my5e1"
+path="res://.godot/imported/toxic_hover.png-754881abcb57e728a8a4630f37542f91.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/game/toxic.png"
-dest_files=["res://.godot/imported/toxic.png-cd5c0db2e6a92a430f9b5a9eaf469c9d.ctex"]
+source_file="res://assets/UI/asset/png@3x/Icon/toxic_hover.png"
+dest_files=["res://.godot/imported/toxic_hover.png-754881abcb57e728a8a4630f37542f91.ctex"]
 
 [params]
 

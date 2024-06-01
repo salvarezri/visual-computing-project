@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://ce8uwfb26p8ma"]
+[gd_scene load_steps=22 format=3 uid="uid://ce8uwfb26p8ma"]
 
 [ext_resource type="Script" path="res://scenes/ui/GameUi.gd" id="1_5416x"]
 [ext_resource type="Theme" uid="uid://b2d7112yucgp8" path="res://scenes/ui/main theme.tres" id="1_uidgp"]
@@ -6,7 +6,19 @@
 [ext_resource type="Texture2D" uid="uid://w7agymhl30te" path="res://assets/UI/asset/png@3x/Icon/lighting.png" id="5_ujju5"]
 [ext_resource type="PackedScene" uid="uid://bv0wcs3b83ap2" path="res://scenes/ui/powerCard.tscn" id="7_hwwmg"]
 [ext_resource type="Texture2D" uid="uid://ea0cc17jdyqq" path="res://assets/UI/asset/png@3x/ProgressBar/no_color_background.png" id="8_4if5f"]
+[ext_resource type="Texture2D" uid="uid://c2gm8uxy4w8te" path="res://assets/UI/asset/png@3x/Icon/rayos.png" id="8_p5ax6"]
+[ext_resource type="Texture2D" uid="uid://cdl2srcnp1rh7" path="res://assets/UI/asset/png@3x/Icon/ray_hover.png" id="9_4n8wu"]
 [ext_resource type="Texture2D" uid="uid://ckxysec7r0fpc" path="res://assets/UI/asset/png@3x/ProgressBar/no_color_progress.png" id="9_olrm0"]
+[ext_resource type="Texture2D" uid="uid://cmr1sietw63ht" path="res://assets/UI/asset/png@3x/Icon/ray_clicked.png" id="10_k2eg8"]
+[ext_resource type="Texture2D" uid="uid://cmt3kd57t04uk" path="res://assets/UI/asset/png@3x/Icon/ray_disabled.png" id="11_ompjw"]
+[ext_resource type="Texture2D" uid="uid://bk2sqsp1lnlan" path="res://assets/UI/asset/png@3x/Icon/toxic.png" id="12_5xssg"]
+[ext_resource type="Texture2D" uid="uid://rxthdu4my5e1" path="res://assets/UI/asset/png@3x/Icon/toxic_hover.png" id="13_g6nkh"]
+[ext_resource type="Texture2D" uid="uid://bm27ltshalbg1" path="res://assets/UI/asset/png@3x/Icon/toxic_click.png" id="14_381vt"]
+[ext_resource type="Texture2D" uid="uid://b4qnffdu6y61f" path="res://assets/UI/asset/png@3x/Icon/toxic_DISABLED.png" id="15_xe4dh"]
+[ext_resource type="Texture2D" uid="uid://do05hkhb23yhs" path="res://assets/UI/asset/png@3x/Icon/Wall.png" id="16_ij2ak"]
+[ext_resource type="Texture2D" uid="uid://djc7y7lq6f72m" path="res://assets/UI/asset/png@3x/Icon/Wall_hover.png" id="17_a3fmg"]
+[ext_resource type="Texture2D" uid="uid://dal8egmebtw8j" path="res://assets/UI/asset/png@3x/Icon/Wall_clicked.png" id="18_25rim"]
+[ext_resource type="Texture2D" uid="uid://bt62yqoulr32s" path="res://assets/UI/asset/png@3x/Icon/Wall_disabled.png" id="19_1rt5f"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u4to4"]
 
@@ -108,14 +120,18 @@ layout_mode = 2
 [node name="RayPowerCard" parent="Powers/M/H" instance=ExtResource("7_hwwmg")]
 layout_mode = 2
 power_name = "RAY"
+button_imgs = Array[Texture2D]([ExtResource("8_p5ax6"), ExtResource("9_4n8wu"), ExtResource("10_k2eg8"), ExtResource("11_ompjw")])
 
 [node name="SplashPowerCard2" parent="Powers/M/H" instance=ExtResource("7_hwwmg")]
 layout_mode = 2
 power_name = "SPLASH"
+button_imgs = Array[Texture2D]([ExtResource("12_5xssg"), ExtResource("13_g6nkh"), ExtResource("14_381vt"), ExtResource("15_xe4dh")])
 
 [node name="WallPowerCard3" parent="Powers/M/H" instance=ExtResource("7_hwwmg")]
 layout_mode = 2
 power_name = "WALL"
+button_imgs = Array[Texture2D]([ExtResource("16_ij2ak"), ExtResource("17_a3fmg"), ExtResource("18_25rim"), ExtResource("19_1rt5f")])
+energy_cost = 0
 
 [connection signal="mouse_entered" from="Powers" to="." method="_on_powers_mouse_entered"]
 [connection signal="mouse_exited" from="Powers" to="." method="_on_powers_mouse_exited"]

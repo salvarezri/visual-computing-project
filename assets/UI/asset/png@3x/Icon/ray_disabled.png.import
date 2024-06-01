@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c2gm8uxy4w8te"
-path="res://.godot/imported/rayos.png-bc572cb98544fef14d377261a730496f.ctex"
+uid="uid://cmt3kd57t04uk"
+path="res://.godot/imported/ray_disabled.png-ef05df2e952da79bd05e265f646688be.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/game/rayos.png"
-dest_files=["res://.godot/imported/rayos.png-bc572cb98544fef14d377261a730496f.ctex"]
+source_file="res://assets/UI/asset/png@3x/Icon/ray_disabled.png"
+dest_files=["res://.godot/imported/ray_disabled.png-ef05df2e952da79bd05e265f646688be.ctex"]
 
 [params]
 
