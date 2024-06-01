@@ -1,1 +1,2 @@
-enum PowerTypes {RAY_POWER, SPLASH_POWER, WALL_POWER}
+extends Node
+var max_score = 0

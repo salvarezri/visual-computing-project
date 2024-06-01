@@ -14,7 +14,6 @@ func _ready():
 func reload():
 	for child in get_children():
 		if child is Enemy:
-			print("enemy")
 			child.queue_free()
 	player.reload()
 	player.position = Vector2(960,540)
@@ -45,7 +44,9 @@ func _on_player_energy_changed():
 
 func _on_player_die():
 	$TimerScore.stop()
-	$GameUi.game_over(score)
+	if score >= Constants.max_score:
+		Constants.max_score = score
+	$GameUi.game_over(score, Constants.max_score )
 	pass # Replace with function body.
 
 

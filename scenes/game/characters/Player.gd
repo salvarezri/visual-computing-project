@@ -51,6 +51,7 @@ func motion_ctrl(delta):
 func reload():
 	healt_component.reload()
 	energy_component.reload()
+	$CollisionShape2D.disabled = false
 	
 func hit(ammount):
 	healt_component.hit(ammount)

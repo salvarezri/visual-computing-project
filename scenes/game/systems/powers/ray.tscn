@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://rjc7c85gqoyn"]
+[gd_scene load_steps=11 format=3 uid="uid://rjc7c85gqoyn"]
 
 [ext_resource type="Script" path="res://scenes/game/systems/powers/ray.gd" id="1_hnp3e"]
+[ext_resource type="AudioStream" uid="uid://d1stsvikqr8q6" path="res://assets/sounds/Y2meta.app - Efecto sonido electricidad 2 (128 kbps).mp3" id="2_3dwfx"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xln5y"]
 radius = 10.198
@@ -25,11 +26,96 @@ height = 200
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 
+[sub_resource type="Animation" id="Animation_sogdk"]
+resource_name = "beggin"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.6, 0.6), Vector2(0.304688, 0.304688)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:monitoring")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PointLight2D:scale")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(4.9075, 4.9075), Vector2(4.067, 4.067), Vector2(5.687, 5.687), Vector2(3.652, 3.652), Vector2(4.857, 4.857)]
+}
+
+[sub_resource type="Animation" id="Animation_0o70m"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.304688, 0.304688)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:monitoring")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PointLight2D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(4.9075, 4.9075)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_u86qg"]
+_data = {
+"RESET": SubResource("Animation_0o70m"),
+"beggin": SubResource("Animation_sogdk")
+}
+
 [node name="Ray" type="Area2D"]
 z_index = 1
 position = Vector2(896, 472)
 script = ExtResource("1_hnp3e")
-damage = 4.0
+damage = 5.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_xln5y")
@@ -52,5 +138,16 @@ energy = 4.47
 shadow_enabled = true
 texture = SubResource("GradientTexture2D_ggja1")
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_3dwfx")
+volume_db = 9.521
+autoplay = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_u86qg")
+}
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

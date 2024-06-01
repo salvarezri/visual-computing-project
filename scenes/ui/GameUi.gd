@@ -68,9 +68,10 @@ func _on_powers_mouse_exited():
 func update_score(score):
 	$Score.text = String.num_int64(score)
 	
-func game_over(score:int):
+func game_over(score:int, max:int):
 	$PanelContainer.visible = true
 	$PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Label.text = String.num_int64(score)
+	$PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/Label.text = String.num_int64(max)
 func _on_texture_button_pressed():
 	restarted.emit()
 	$PanelContainer.visible = false

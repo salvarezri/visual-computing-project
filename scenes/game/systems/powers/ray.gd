@@ -17,5 +17,11 @@ func _on_body_entered(body: PhysicsBody2D):
 
 
 func _on_timer_timeout():
-	queue_free()
+	$AnimationPlayer.play("beggin")
+	pass # Replace with function body.
+
+
+func _on_animation_player_animation_finished(anim_name):
+	if anim_name =="beggin":
+		queue_free()
 	pass # Replace with function body.

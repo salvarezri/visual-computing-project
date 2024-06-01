@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cjeg482u0ulpf"
+path="res://.godot/imported/Y2meta.app - Freír en Sarten (Efecto de Sonido) Frying Pan Sizzle  Sound Effect (128 kbps).mp3-6a2187f4289c001050b5d974b1c73e95.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/Y2meta.app - Freír en Sarten (Efecto de Sonido) Frying Pan Sizzle  Sound Effect (128 kbps).mp3"
+dest_files=["res://.godot/imported/Y2meta.app - Freír en Sarten (Efecto de Sonido) Frying Pan Sizzle  Sound Effect (128 kbps).mp3-6a2187f4289c001050b5d974b1c73e95.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
