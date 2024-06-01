@@ -71,7 +71,8 @@ func get_max_healt():
 func _on_healt_component_sg_hit(healt, _hit_taken):
 	hited.emit()
 
-
+func can_consume(amount):
+	return energy_component.can_consume(amount)
 func _on_energy_component_sg_consumed_energy():
 	energy_changed.emit()
 

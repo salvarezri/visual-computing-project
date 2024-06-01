@@ -1,8 +1,8 @@
 class_name EnergyComponent
 extends Node
 
-@export var init_max_energy: float = 10.0
-@export var restore_per_second = 4
+@export var init_max_energy: float = 20.0
+@export var restore_per_second = 0
 
 # Signals
 signal sg_max_energy_seted()
@@ -81,6 +81,8 @@ func clear_energy():
 	sg_no_energy.emit(0)
 	curr_energy = 0
 	
+func can_consume(amount: float) -> bool: 
+	return true if amount<=curr_energy else false
 # get properties
 func get_max_energy() -> float:
 	return max_energy
@@ -98,7 +100,5 @@ func has_max_energy(presition:float = 0.001)-> bool:
 	return curr_energy >= max_energy-presition && curr_energy < max_energy+presition
 
 func _on_timer_timeout():
-	print("restore")
-	print(has_max_energy())
 	if !has_max_energy() && restore_per_second>0:
 		heal(restore_per_second)

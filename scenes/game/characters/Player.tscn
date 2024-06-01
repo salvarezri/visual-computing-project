@@ -51,7 +51,6 @@ occluder_light_mask = 3
 [node name="EnergyComponent" type="Node" parent="."]
 script = ExtResource("3_oj5uo")
 init_max_energy = 24.0
-restore_per_second = 1
 
 [node name="Timer" type="Timer" parent="EnergyComponent"]
 autostart = true

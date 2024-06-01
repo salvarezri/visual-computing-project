@@ -150,6 +150,7 @@ FRICTION = 582
 power_scenes = Array[PackedScene]([ExtResource("6_xsior"), ExtResource("9_wukmr")])
 power_selector = 1
 active = true
+player_path = NodePath("../Player")
 
 [node name="Walls" type="Node2D" parent="."]
 visible = false
